@@ -32,9 +32,7 @@ Calcola l'identità di ogni singola read allineata in un file BAM (escludendo un
 - **identity**:  
   Identità basata solo sul numero totale di mismatch (ottenuti dal tag `MD`).  
   Formula:  
-  \[
-  \text{identity} = 1 - \frac{\text{mismatches\_total}}{\text{aligned\_length\_total}}
-  \]
+  identity = 1 - {{mismatches_total}/{aligned_length_total}}
 
 - **identity_filtered**:  
   Come sopra, ma escludendo mismatch che coincidono con varianti SNV note nel VCF.  
