@@ -23,9 +23,8 @@ Lo script Run_Identity_Workflow.py richiamerà i seguenti step:
     - lo script prende in input il BAM, VCF, fasta e le regioni target e un output_name. Genera un secondo report calcolando, tramite samtools mpileup, l'identità dei dati allineati. Per fare questo calcola il numero totale di basi allineate che non sono in posizioni varianti (nel vcf) e conta il numero di basi mismatch/indel. L'output è un file .identity.all.types.pileup.report.
 
 # Esempio per lanciare il workflow:
-"""
-bash Run_Identity_Workflow.sh $PATH/start_sorted.bam $PATH/HG001_GRCh38_1_22_v4.2.1_benchmark.vcf.gz run_workflow_NOME_CAMPIONE >> IDENTITY_run_workflow_NOME_CAMPIONE.log
-"""
+    bash Run_Identity_Workflow.sh $PATH/start_sorted.bam $PATH/HG001_GRCh38_1_22_v4.2.1_benchmark.vcf.gz run_workflow_NOME_CAMPIONE >> IDENTITY_run_workflow_NOME_CAMPIONE.log
+
 
 
 # 🧬 IdentityRevelations.py
