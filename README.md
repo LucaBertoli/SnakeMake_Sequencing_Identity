@@ -53,9 +53,7 @@ Calcola l'identità di ogni singola read allineata in un file BAM (escludendo un
 
 
 **Note**:
-- `aligned_length_total` rappresenta la lunghezza totale dell’allineamento della read sulla reference, inclusi indel.
-- Le posizioni di mismatch sono ottenute dal tag `MD` del BAM.
-- Le posizioni di inserzioni e delezioni sono ottenute dal CIGAR.
+- `aligned_length_total` rappresenta la lunghezza totale dell’allineamento della read.
 
 
 Quest'ultima è l'identità che viene utilizzata negli step successivi della pipeline.
