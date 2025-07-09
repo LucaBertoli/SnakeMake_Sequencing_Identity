@@ -36,21 +36,21 @@ Calcola l'identità di ogni singola read allineata in un file BAM (escludendo un
 
 - **identity_filtered**:  
   Come sopra, ma escludendo mismatch che coincidono con varianti SNV note nel VCF.  
-  \[
-  \text{identity\_filtered} = 1 - \frac{\text{mismatches\_filtered}}{\text{aligned\_length\_total}}
-  \]
+
+  identity_filtered = 1 - {{mismatches_filtered}/{aligned_length_total}}
+  
 
 - **identity_with_indels**:  
   Identità considerando sia i mismatch che la lunghezza totale di inserzioni e delezioni.  
-  \[
-  \text{identity\_with\_indels} = 1 - \frac{\text{mismatches\_total} + \text{inserted\_bases} + \text{deleted\_bases}}{\text{aligned\_length\_total}}
-  \]
+  
+  identity_with_indels = 1 - {{mismatches_total} + {inserted_bases} + {deleted_bases}}/{aligned_length_total}
+  
 
 - **identity_filtered_with_indels**:  
   Come sopra, ma escludendo mismatch e indel sovrapposti a varianti note (SNV e INDEL).  
-  \[
-  \text{identity\_filtered\_with\_indels} = 1 - \frac{\text{mismatches\_filtered} + \text{filtered\_inserted\_bases} + \text{filtered\_deleted\_bases}}{\text{aligned\_length\_total}}
-  \]
+
+  identity_filtered_with_indels = 1 - {{mismatches_filtered} + {filtered_inserted_bases} + {filtered_deleted_bases}}/{aligned_length_total}
+
 
 **Note**:
 - `aligned_length_total` rappresenta la lunghezza totale dell’allineamento della read sulla reference, inclusi indel.
