@@ -5,7 +5,7 @@ Lo script principale à:
 
 Lo script Run_Identity_Workflow.py richiamerà i seguenti step:
 
-- intersezione con bcftools intersect del BAM con un file BED di regioni ad alta confidenza (es. HG001_GRCh38_1_22_v4.2.1_benchmark.bed), da fare soltanto una volta per generare il BAM nelle high confidence regions (HCR)
+- intersezione con bcftools intersect del BAM con un file BED di regioni ad alta confidenza (es. HG001_GRCh38_1_22_v4.2.1_benchmark.bed), da fare per restringere l'analisi dell'identità a regioni ad alta confidenza (high confidence regions, i.e. HCR)
 
 - IdentityRevelations.py
     - questo script calcola a partire dal BAM e dal VCF un file tsv.gz contenente i mismatch, indel e valori di identità di ogni read (escludendo secondary, supplementay e unmapped fragments). Per le specifiche vedi sotto.
