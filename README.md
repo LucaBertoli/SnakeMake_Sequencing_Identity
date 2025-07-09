@@ -27,19 +27,42 @@ Lo script Run_Identity_Workflow.py richiamerà i seguenti step:
 # 🧬 IdentityRevelations.py
 
 Questo script è il cuore del calcolo dell'identità sulla base dell'allineamento. 
-Calcola l'identità di ogni singola read allineata in un file BAM (escludendo unmapped, secondary e supplementary alignments) con il supporto di un file VCF contenente varianti (SNV e INDEL). Il calcolo dell'identità avviene in 4 modalità (riportate tutte nell'ourput):
+Calcola l'identità di ogni singola read allineata in un file BAM (escludendo unmapped, secondary e supplementary alignments) con il supporto di un file VCF contenente varianti (SNV e INDEL). Lo script calcola quattro metriche di identità per ciascuna read, tutte espresse come valori compresi tra 0 e 1, dove 1 indica identità perfetta con il riferimento:
 
-    Solo mismatch (identity)
+- **identity**:  
+  Identità basata solo sul numero totale di mismatch (ottenuti dal tag `MD`).  
+  Formula:  
+  \[
+  \text{identity} = 1 - \frac{\text{mismatches\_total}}{\text{aligned\_length\_total}}
+  \]
 
-    Mismatch esclusi se sovrapposti a SNV nel VCF (identity_filtered)
+- **identity_filtered**:  
+  Come sopra, ma escludendo mismatch che coincidono con varianti SNV note nel VCF.  
+  \[
+  \text{identity\_filtered} = 1 - \frac{\text{mismatches\_filtered}}{\text{aligned\_length\_total}}
+  \]
 
-    Mismatch + indel (identity_with_indels)
+- **identity_with_indels**:  
+  Identità considerando sia i mismatch che la lunghezza totale di inserzioni e delezioni.  
+  \[
+  \text{identity\_with\_indels} = 1 - \frac{\text{mismatches\_total} + \text{inserted\_bases} + \text{deleted\_bases}}{\text{aligned\_length\_total}}
+  \]
 
-    Mismatch + indel esclusi se sovrapposti a varianti nel VCF (identity_filtered_with_indels)
+- **identity_filtered_with_indels**:  
+  Come sopra, ma escludendo mismatch e indel sovrapposti a varianti note (SNV e INDEL).  
+  \[
+  \text{identity\_filtered\_with\_indels} = 1 - \frac{\text{mismatches\_filtered} + \text{filtered\_inserted\_bases} + \text{filtered\_deleted\_bases}}{\text{aligned\_length\_total}}
+  \]
+
+**Note**:
+- `aligned_length_total` rappresenta la lunghezza totale dell’allineamento della read sulla reference, inclusi indel.
+- Le posizioni di mismatch sono ottenute dal tag `MD` del BAM.
+- Le posizioni di inserzioni e delezioni sono ottenute dal CIGAR.
+
 
 Quest'ultima è l'identità che viene utilizzata negli step successivi della pipeline.
 
-Utilizzando la libreria pysam, script estrae mismatch tramite il tag MD e indel dalla CIGAR. Il risultato è un file .tsv.gz contenente metriche per ciascuna read:
+Utilizzando la libreria pysam, script estrae mismatch tramite il tag MD e indel dalla CIGAR. Questi mismatch vengono confrontati con due dizionari contenenti rispettivamente le SNV e le INDEL. Se i mismatch o le indel identificati nella CIGAR e nel tag MD corrispondono a una variante nei due dizionari, quest'ultimi non vengono considerati come mismatch nel calcolo dell'identità. Il risultato è un file .tsv.gz contenente metriche per ciascuna read:
 
     Conteggio di mismatch totali e filtrati
 
