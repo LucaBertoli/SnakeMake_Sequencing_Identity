@@ -24,5 +24,28 @@ Lo script Run_Identity_Workflow.py richiamerà i seguenti step:
 
 
 
-# 🧬 IdentityRevelations
+# 🧬 IdentityRevelations.py
+
+Questo script è il cuore del calcolo dell'identità sulla base dell'allineamento. 
+Calcola l'identità di ogni singola read allineata in un file BAM (escludendo unmapped, secondary e supplementary alignments) con il supporto di un file VCF contenente varianti (SNV e INDEL). Il calcolo dell'identità avviene in 4 modalità (riportate tutte nell'ourput):
+
+    Solo mismatch (identity)
+
+    Mismatch esclusi se sovrapposti a SNV nel VCF (identity_filtered)
+
+    Mismatch + indel (identity_with_indels)
+
+    Mismatch + indel esclusi se sovrapposti a varianti nel VCF (identity_filtered_with_indels)
+
+Quest'ultima è l'identità che viene utilizzata negli step successivi della pipeline.
+
+Utilizzando la libreria pysam, script estrae mismatch tramite il tag MD e indel dalla CIGAR. Il risultato è un file .tsv.gz contenente metriche per ciascuna read:
+
+    Conteggio di mismatch totali e filtrati
+
+    Conteggio e lunghezza di inserzioni e delezioni (filtrate e non)
+
+    Lunghezza della read allineata
+
+    Identità osservata nelle modalità sopracitate
 
