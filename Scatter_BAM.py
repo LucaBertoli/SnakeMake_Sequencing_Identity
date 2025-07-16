@@ -44,8 +44,9 @@ def process_bam(input_bam, mode):
     bam_in.close()
 
     if write_bams:
-        bam_out_30_35.close()
-        bam_out_35_up.close()
+        bam_out_30_up.close()
+        # bam_out_30_35.close()
+        # bam_out_35_up.close()
     if write_tsv:
         out_tsv.close()
 
