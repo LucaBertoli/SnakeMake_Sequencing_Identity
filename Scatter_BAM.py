@@ -13,9 +13,10 @@ def process_bam(input_bam, mode):
 
     #condizione per aprire in modalità scrittura dei file bam (da utilzizare se si vogliono generare bam con soltanto read di una certa qualità)
     if write_bams:
-        bam_out_30_up = pysam.AlignmentFile(input_bam + "_reads_30_up.bam", "wb", template=bam_in)
-        # bam_out_30_35 = pysam.AlignmentFile(input_bam + "_reads_30_35.bam", "wb", template=bam_in)
-        # bam_out_35_up = pysam.AlignmentFile(input_bam + "_reads_35_up.bam", "wb", template=bam_in)
+        base_name = input_bam[:-4] if input_bam.endswith(".bam") else input_bam
+        bam_out_30_up = pysam.AlignmentFile(base_name + "_reads_30_up.bam", "wb", template=bam_in)
+        # bam_out_30_35 = pysam.AlignmentFile(base_name + "_reads_30_35.bam", "wb", template=bam_in)
+        # bam_out_35_up = pysam.AlignmentFile(base_name + "_reads_35_up.bam", "wb", template=bam_in)
 
     if write_tsv:
         out_tsv = gzip.open(input_bam + "_mean_quality.tsv.gz", "wt")
