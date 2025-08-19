@@ -7,7 +7,7 @@ TARGET=$4
 OUTPUT=$5
 
 if [[ -n $FASTA && -n $BAM && -n $VCF && -n $TARGET ]]; then
-  PILEUP_FILE=$(dirname $(realpath $BAM))/$(basename $BAM .bam).all.types.pileup
+  PILEUP_FILE=$(dirname $(realpath $BAM))/$(basename $BAM .bam).${OUTPUT}.all.types.pileup
   # REPORT_FILE=$(dirname $(realpath $BAM))/$(basename $BAM .bam).all.types.pileup.report
   REPORT_FILE=${OUTPUT}.identity.all.types.pileup.report
 

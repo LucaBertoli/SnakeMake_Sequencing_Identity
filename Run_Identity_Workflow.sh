@@ -45,22 +45,22 @@ bash $scripts_folder/identity_calculalculation_all_types.sh $FASTA $bam $vcf $BE
 echo "Step5: FINE calcolo dell'identità utilizzando tutti i dati assieme..."
 
 
-#### I seguenti comandi non vanno utilizzati a meno che non si voglia calcolare l'identità separando read 1 e read 2.
-# echo "Step1.1: INIZIO calcolo dell'identità sul bam read1..."
-# python $scripts_folder/IdentityRevelations.py $bam $vcf IDENTITY_${output_name}_read1.tsv.gz read1
-# echo "Step1.1: FINE calcolo dell'identità sul bam read1..."
+### I seguenti comandi non vanno utilizzati a meno che non si voglia calcolare l'identità separando read 1 e read 2.
+echo "Step1.1: INIZIO calcolo dell'identità sul bam read1..."
+python $scripts_folder/IdentityRevelations.py $bam $vcf IDENTITY_${output_name}_read1.tsv.gz read1
+echo "Step1.1: FINE calcolo dell'identità sul bam read1..."
 
-# echo "Step2.1: INIZIO calcolo delle statistiche sull'identità del bam read1..."
-# python $scripts_folder/IdentityRevelations_stats.py IDENTITY_${output_name}_read1.tsv.gz >> IDENTITY_${output_name}_read1.tsv.gz.stats
-# echo "Step2.1: FINE calcolo delle statistiche sull'identità del bam read1..."
+echo "Step2.1: INIZIO calcolo delle statistiche sull'identità del bam read1..."
+python $scripts_folder/IdentityRevelations_stats.py IDENTITY_${output_name}_read1.tsv.gz >> IDENTITY_${output_name}_read1.tsv.gz.stats
+echo "Step2.1: FINE calcolo delle statistiche sull'identità del bam read1..."
 
-# echo "Step1.2: INIZIO calcolo dell'identità sul bam read2..."
-# python $scripts_folder/IdentityRevelations.py $bam $vcf IDENTITY_${output_name}_read2.tsv.gz read2
-# echo "Step1.2: FINE calcolo dell'identità sul bam read2..."
+echo "Step1.2: INIZIO calcolo dell'identità sul bam read2..."
+python $scripts_folder/IdentityRevelations.py $bam $vcf IDENTITY_${output_name}_read2.tsv.gz read2
+echo "Step1.2: FINE calcolo dell'identità sul bam read2..."
 
-# echo "Step2.2: INIZIO calcolo delle statistiche sull'identità del bam read2..."
-# python $scripts_folder/IdentityRevelations_stats.py IDENTITY_${output_name}_read2.tsv.gz >> IDENTITY_${output_name}_read2.tsv.gz.stats
-# echo "Step2.2: FINE calcolo delle statistiche sull'identità del bam read2..."
+echo "Step2.2: INIZIO calcolo delle statistiche sull'identità del bam read2..."
+python $scripts_folder/IdentityRevelations_stats.py IDENTITY_${output_name}_read2.tsv.gz >> IDENTITY_${output_name}_read2.tsv.gz.stats
+echo "Step2.2: FINE calcolo delle statistiche sull'identità del bam read2..."
 
 end_time=$(date +%s)
 execution_time=$((end_time - start_time))

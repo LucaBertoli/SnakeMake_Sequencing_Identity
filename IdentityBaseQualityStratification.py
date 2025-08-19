@@ -70,7 +70,7 @@ def calculate_stratified_identity(bam, vcf, output):
     snv_dict, indel_dict = load_variant_positions(vcf)
 
     base_quality_dictionary = {
-            str(i): {'match': 0, 'match_correct' : 0, 'match_error': 0, 'mismatch': 0, 'mismatch_correct': 0, 'mismatch_error': 0, 'insertion': 0, 'insertion_filtered': 0}
+            str(i): {'match': 0, 'match_correct' : 0, 'match_error': 0, 'mismatch': 0, 'mismatch_correct': 0, 'mismatch_error': 0, 'insertion': 0, 'insertion_correct': 0, 'insertion_error': 0}
             for i in range(0, 51)
         }
 
@@ -88,8 +88,8 @@ def calculate_stratified_identity(bam, vcf, output):
             aligned_pairs = read.get_aligned_pairs(matches_only=False, with_seq=False, with_cigar=True)
             mismatch_positions = set(get_mismatch_positions(read))
 
-            # print(read.query_qualities)
-            # print(aligned_pairs)
+            print(read.query_qualities)
+            print(aligned_pairs)
 
             for query_pos, ref_pos, cigar_op in aligned_pairs:
                 if cigar_op == 4:  # softclip → ignoriamo
@@ -99,17 +99,17 @@ def calculate_stratified_identity(bam, vcf, output):
                 elif query_pos is not None and ref_pos is None and cigar_op == 1:  # insertion
                     base_quality_dictionary[str(read.query_qualities[query_pos])]['insertion'] += 1
 
-                    # Posizione approssimativa nel riferimento: usa il ref_pos precedente
-                    # oppure la start position della read per stimare
+                    # calcolo della posizione di inserzione e la confronto con le posizioni di inserzioni nel VCF.
                     insertion_pos = read.reference_start + query_pos
+                    print(insertion_pos)
                     match_found = any(
-                        insertion_pos >= start and insertion_pos <= end and typ == 'I'
+                        insertion_pos-1 >= start and insertion_pos-1 <= end and typ == 'I'
                         for (start, end, typ) in indel_dict[chrom]
                     )
                     if match_found:
-                        base_quality_dictionary[key]['insertion_correct'] += 1
+                        base_quality_dictionary[str(read.query_qualities[query_pos])]['insertion_correct'] += 1
                     else:
-                        base_quality_dictionary[key]['insertion_error'] += 1
+                        base_quality_dictionary[str(read.query_qualities[query_pos])]['insertion_error'] += 1
 
                 elif query_pos is not None and ref_pos is not None: # match or mismatch
                     q = read.query_qualities[query_pos]
@@ -127,10 +127,10 @@ def calculate_stratified_identity(bam, vcf, output):
                             base_quality_dictionary[str(q)]['match_error'] += 1
 
 
-        out.write("BaseQuality\tMatch\tMatch_correct\tMatch_error\tMismatch\tMismatch_correct\tMismatch_error\tInsertion\tInsertion_filtered\n")
+        out.write("BaseQuality\tMatch\tMatch_correct\tMatch_error\tMismatch\tMismatch_correct\tMismatch_error\tInsertion\tInsertion_correct\tInsertion_error\n")
         for q in sorted(base_quality_dictionary.keys(), key=lambda x: int(x)):
             values = base_quality_dictionary[q]
-            out.write(f"{q}\t{values['match']}\t{values['match_correct']}\t{values['match_error']}\t{values['mismatch']}\t{values['mismatch_correct']}\t{values['mismatch_error']}\t{values['insertion']}\t{values['insertion_filtered']}\n")
+            out.write(f"{q}\t{values['match']}\t{values['match_correct']}\t{values['match_error']}\t{values['mismatch']}\t{values['mismatch_correct']}\t{values['mismatch_error']}\t{values['insertion']}\t{values['insertion_correct']}\t{values['insertion_error']}\n")
 
     bam.close()
     out.close()

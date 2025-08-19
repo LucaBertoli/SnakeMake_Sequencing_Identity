@@ -21,8 +21,8 @@ FASTA="/home/db/hg38_bwa2/hg38_chr1-22-XYM/Homo_sapiens_assembly38_noalt.fasta"
 BED="/home/db/hg38_bwa2/hg38_chr1-22-XYM/Homo_sapiens_assembly38_noalt.bed"
 
 
-bedtools intersect -abam $bam_temporaneo -b /home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/HG001_GRCh38_1_22_v4.2.1_benchmark.bed -f 1 -u > $bam
-samtools index $bam
+# bedtools intersect -abam $bam_temporaneo -b /home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/HG001_GRCh38_1_22_v4.2.1_benchmark.bed -f 1 -u > $bam
+# samtools index $bam
 
 echo "Step3: INIZIO estrazione delle read con una qualità media mappata superiore a 30..."
 python $scripts_folder/Scatter_BAM.py $bam BAM
