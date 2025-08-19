@@ -26,21 +26,21 @@ def load_variant_positions(vcf_path):
             # per ogni allele della variante, controlla se è un SNV o un INDEL.
             # Se è un SNV, aggiunge la posizione al dizionario degli SNV.
             # Se è un INDEL, calcola la lunghezza e le posizioni di inserzione o delezione e le aggiunge al dizionario degli INDEL.
+            # Tolgo 1 dalle coordinate perche` i` VCF sono 1-based mentre pysam e` 0-based.
             for alt in alts:
                 if len(ref) == 1 and len(alt) == 1:
-                    snv_dict[chrom].add(pos)
-
+                    snv_dict[chrom].add(pos - 1)  # rendi 0-based
                 elif len(ref) > len(alt):  # Deletion
                     del_len = len(ref) - len(alt)
-                    del_start = pos
-                    del_end = pos + del_len
+                    del_start = pos - 1
+                    del_end = pos - 1 + del_len
                     indel_dict[chrom].add((del_start, del_end, 'D'))
-                    
                 elif len(ref) < len(alt):  # Insertion
                     ins_len = len(alt) - len(ref)
-                    ins_start = pos
-                    ins_end = pos + ins_len
+                    ins_start = pos - 1
+                    ins_end = pos - 1 + ins_len
                     indel_dict[chrom].add((ins_start, ins_end, 'I'))
+
     
     print("fine caricamento delle posizioni delle varianti dal VCF:", vcf_path)
     return snv_dict, indel_dict
@@ -88,43 +88,62 @@ def calculate_stratified_identity(bam, vcf, output):
             aligned_pairs = read.get_aligned_pairs(matches_only=False, with_seq=False, with_cigar=True)
             mismatch_positions = set(get_mismatch_positions(read))
 
-            print(read.query_qualities)
-            print(aligned_pairs)
+            # Scorriamo tutte le coppie allineate (base della read ↔ posizione sul riferimento)
+            # query_pos = indice della base nella read (0-based), oppure None se c’è una delezione
+            # ref_pos   = indice della base nel riferimento (0-based), oppure None se c’è un’inserzione
+            last_ref_pos = None # posizione sul reference da utilizzare per localizzare le inserzioni
+            for query_pos, ref_pos, cigar_op in read.get_aligned_pairs(matches_only=False, with_cigar=True):
+            
+                # --- Caso 1: delezione ---
+                # query_pos è None → nessuna base nella read corrisponde a ref_pos
+                if query_pos is None and ref_pos is not None:
+                    last_ref_pos = ref_pos
+                    continue  # saltiamo le delezioni (non hanno qualità di base associata)
+                
+                # --- Caso 2: inserzione ---
+                # ref_pos è None → la base della read non allinea a nessuna base del riferimento
+                elif query_pos is not None and ref_pos is None and cigar_op == 1:
+                    q = read.query_qualities[query_pos]  # qualità della base inserita
+                    base_quality_dictionary[str(q)]['insertion'] += 1  # conteggio inserzione
+                    insertion_site = last_ref_pos # la posizione della inserzione sul reference corrisponde alla posizione della base precedente
 
-            for query_pos, ref_pos, cigar_op in aligned_pairs:
-                if cigar_op == 4:  # softclip → ignoriamo
-                    continue
-                elif query_pos is None and ref_pos is not None: # deletion → non ha la base nella read → saltiamo
-                    continue
-                elif query_pos is not None and ref_pos is None and cigar_op == 1:  # insertion
-                    base_quality_dictionary[str(read.query_qualities[query_pos])]['insertion'] += 1
-
-                    # calcolo della posizione di inserzione e la confronto con le posizioni di inserzioni nel VCF.
-                    insertion_pos = read.reference_start + query_pos
-                    print(insertion_pos)
+                    # Verifichiamo se questa inserzione coincide con una inserzione nota nel VCF
                     match_found = any(
-                        insertion_pos-1 >= start and insertion_pos-1 <= end and typ == 'I'
-                        for (start, end, typ) in indel_dict[chrom]
+                        (ref_start <= insertion_site <= ref_end and typ == 'I')
+                        for (ref_start, ref_end, typ) in indel_dict[chrom]
                     )
+            
                     if match_found:
-                        base_quality_dictionary[str(read.query_qualities[query_pos])]['insertion_correct'] += 1
+                        base_quality_dictionary[str(q)]['insertion_correct'] += 1
                     else:
-                        base_quality_dictionary[str(read.query_qualities[query_pos])]['insertion_error'] += 1
-
-                elif query_pos is not None and ref_pos is not None: # match or mismatch
-                    q = read.query_qualities[query_pos]
-                    if ref_pos in mismatch_positions:                                   # mismatch
+                        base_quality_dictionary[str(q)]['insertion_error'] += 1
+            
+                # --- Caso 3: match o mismatch ---
+                # query_pos e ref_pos non sono None → c’è una base della read e una del riferimento
+                elif query_pos is not None and ref_pos is not None:
+                    q = read.query_qualities[query_pos]  # qualità della base
+            
+                    # Se la posizione è nelle mismatch calcolate da MD tag → è un mismatch
+                    if ref_pos in mismatch_positions:
                         base_quality_dictionary[str(q)]['mismatch'] += 1
-                        if ref_pos not in snv_dict[chrom]:                                  #non nel vcf
-                            base_quality_dictionary[str(q)]['mismatch_error'] += 1
-                        else:                                                               # nel vcf
+            
+                        # Controlliamo se il mismatch corrisponde a una SNV nota nel VCF
+                        if ref_pos in snv_dict[chrom]:
                             base_quality_dictionary[str(q)]['mismatch_correct'] += 1
-                    else:                                                               # match
+                        else:
+                            base_quality_dictionary[str(q)]['mismatch_error'] += 1
+            
+                    # Altrimenti è un match
+                    else:
                         base_quality_dictionary[str(q)]['match'] += 1
-                        if ref_pos not in snv_dict[chrom]:                                  # non nel vcf
-                            base_quality_dictionary[str(q)]['match_correct'] += 1
-                        else:                                                               # nel vcf
+            
+                        # Se la posizione coincide con una variante SNV → consideriamo match "errore"
+                        if ref_pos in snv_dict[chrom]:
                             base_quality_dictionary[str(q)]['match_error'] += 1
+                        else:
+                            base_quality_dictionary[str(q)]['match_correct'] += 1
+                    
+                    last_ref_pos = ref_pos # aggiorno la posizione corrente da utilizzare per localizzare le inserzioni
 
 
         out.write("BaseQuality\tMatch\tMatch_correct\tMatch_error\tMismatch\tMismatch_correct\tMismatch_error\tInsertion\tInsertion_correct\tInsertion_error\n")
