@@ -154,6 +154,15 @@ def calculate_stratified_identity(bam, vcf, output):
     bam.close()
     out.close()
 
+def extract_identity_statistics(output):
+    df=pd.read_csv(output, sep="\t")
+    df['identity'] = 1 - (df['Mismatch'] / (df['Match'] + df['Mismatch']))
+    df['identity_filtered'] = 1 - ((df["Match_error"] + df['Mismatch_error']) / (df['Match'] + df['Mismatch']))
+    df['identity_with_ins'] = 1 - ((df['Mismatch'] + df['Insertion']) / (df['Match'] + df['Mismatch'] + df['Insertion']))
+    df['identity_with_ins_filtered'] = 1 - ((df["Match_error"] + df['Mismatch_error'] + df["Insertion_error"]) / (df['Match'] + df['Mismatch'] + df['Insertion']))
+
+    df.to_csv(output + ".stats", sep="\t", index=False, float_format="%.6f", na_rep="NaN")
+
 if __name__ == "__main__":
     print("INIZIO del calcolo della identità stratificando i dati per qualità delle basi")
 
@@ -176,3 +185,9 @@ if __name__ == "__main__":
     calculate_stratified_identity(bam, VCF, output)
 
     print("FINE calcolo dell'identità...")
+
+    print("INIZIO del calcolo delle statistiche")
+
+    extract_identity_statistics(output)
+
+    print("FINE del calcolo delle statistiche")
