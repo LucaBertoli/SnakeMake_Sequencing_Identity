@@ -1,3 +1,40 @@
+# Script: Calcolo dell'identità di sequenziamento stratificata per la qualità della base
+
+# Questo script analizza un file BAM/SAM e un file VCF di varianti note per
+# calcolare l'identità delle basi rispetto al genoma di riferimento.
+# L'identità viene stratificata per livello di qualità delle basi (Phred score) assegnato dal sequenziatore.
+# Lo script ignora le delezioni in quanto quest'ultime non presentano basi sequenziate e la rispettiva qualità.
+# I match vengono considerati sempre corretti, sia se ricadono in varianti che se ricadono fuori da varianti (questo per via delle varianti in eterozigosi).
+
+# Lo script:
+#   1. Carica le posizioni delle varianti dal VCF (SNV e indel). Usare gold set se possibile.
+#   2. Per ciascuna read del BAM:
+#      - Identifica match, mismatch e inserzioni utilizzando i tag MD e CIGAR.
+#      - Conta quanti eventi coincidono con varianti note (corretti) o non note (errori).
+#      - Registra i conteggi in base alla qualità delle basi.
+#   3. Produce una tabella tab-delimited (compressa in gzip) con i conteggi
+#      per ogni livello di qualità da 0 a 50.
+#   4. Calcola le metriche di identità:
+#        - identity:              1 - (mismatch / (match + mismatch))
+#        - identity_filtered:     1 - (mismatch_error / (match + mismatch))
+#        - identity_with_ins:     1 - ((mismatch + insertion) / (match + mismatch + insertion))
+#        - identity_with_ins_filtered:  1 - ((mismatch_error + insertion_error) / (match + mismatch + insertion))
+
+# Input
+# -----
+#   - BAM/SAM (allineamento con tag MD)
+#   - VCF     (varianti note, SNV e indel)
+#
+# Output
+# ------
+#   - <output>.gz       : tabella dei conteggi per qualità
+#   - <output>.gz.stats : tabella con statistiche di identità
+
+# Uso
+# ---
+#   python script.py <input.bam> <input.vcf> <output.gz>
+
+
 import pandas as pd
 import numpy as np
 import os
