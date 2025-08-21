@@ -154,12 +154,12 @@ def calculate_stratified_identity(bam, vcf, output):
     bam.close()
     out.close()
 
-def extract_identity_statistics(output):
+def extract_identity_statistics(output): ## da modificare aggiungendo i match errati nel calcolo dell'identita (sono basi reference in corrispondenza di varianti in eterozigosi)
     df=pd.read_csv(output, sep="\t")
     df['identity'] = 1 - (df['Mismatch'] / (df['Match'] + df['Mismatch']))
-    df['identity_filtered'] = 1 - ((df["Match_error"] + df['Mismatch_error']) / (df['Match'] + df['Mismatch']))
+    df['identity_filtered'] = 1 - ((df['Mismatch_error']) / (df['Match'] + df['Mismatch']))
     df['identity_with_ins'] = 1 - ((df['Mismatch'] + df['Insertion']) / (df['Match'] + df['Mismatch'] + df['Insertion']))
-    df['identity_with_ins_filtered'] = 1 - ((df["Match_error"] + df['Mismatch_error'] + df["Insertion_error"]) / (df['Match'] + df['Mismatch'] + df['Insertion']))
+    df['identity_with_ins_filtered'] = 1 - ((df['Mismatch_error'] + df["Insertion_error"]) / (df['Match'] + df['Mismatch'] + df['Insertion']))
 
     df.to_csv(output + ".stats", sep="\t", index=False, float_format="%.6f", na_rep="NaN")
 
