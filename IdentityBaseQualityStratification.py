@@ -145,10 +145,13 @@ def calculate_stratified_identity(bam, vcf, output):
                     insertion_site = last_ref_pos # la posizione della inserzione sul reference corrisponde alla posizione della base precedente
 
                     # Verifichiamo se questa inserzione coincide con una inserzione nota nel VCF
-                    match_found = any(
-                        (ref_start <= insertion_site <= ref_end and typ == 'I')
-                        for (ref_start, ref_end, typ) in indel_dict[chrom]
-                    )
+                    if insertion_site is not None:
+                        match_found = any(
+                            (ref_start <= insertion_site <= ref_end and typ == 'I')
+                            for (ref_start, ref_end, typ) in indel_dict[chrom]
+                        )
+                    else:
+                        match_found = False
             
                     if match_found:
                         base_quality_dictionary[str(q)]['insertion_correct'] += 1
