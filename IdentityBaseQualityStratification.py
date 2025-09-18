@@ -203,6 +203,32 @@ def extract_identity_statistics(output): ## da modificare aggiungendo i match er
 
     df.to_csv(output + ".stats", sep="\t", index=False, float_format="%.6f", na_rep="NaN")
 
+def extract_binned_identity_statistics(output):
+    df = pd.read_csv(output, sep="\t")
+
+    bins = [0, 3, 18, 30, 51]
+    labels = ['0-2', '3-17', '18-29', '30+']
+    df['BQ_bin'] = pd.cut(df['BaseQuality'], bins=bins, labels=labels, right=False)
+
+    binned_stats = df.groupby('BQ_bin', observed=False).agg({
+        'Match': 'sum',
+        'Match_correct': 'sum',
+        'Match_error': 'sum',
+        'Mismatch': 'sum',
+        'Mismatch_correct': 'sum',
+        'Mismatch_error': 'sum',
+        'Insertion': 'sum',
+        'Insertion_correct': 'sum',
+        'Insertion_error': 'sum'
+    }).reset_index()
+
+    binned_stats['identity'] = 1 - (binned_stats['Mismatch'] / (binned_stats['Match'] + binned_stats['Mismatch']))
+    binned_stats['identity_filtered'] = 1 - ((binned_stats['Mismatch_error']) / (binned_stats['Match'] + binned_stats['Mismatch']))
+    binned_stats['identity_with_ins'] = 1 - ((binned_stats['Mismatch'] + binned_stats['Insertion']) / (binned_stats['Match'] + binned_stats['Mismatch'] + binned_stats['Insertion']))
+    binned_stats['identity_with_ins_filtered'] = 1 - ((binned_stats['Mismatch_error'] + binned_stats["Insertion_error"]) / (binned_stats['Match'] + binned_stats['Mismatch'] + binned_stats['Insertion']))
+
+    binned_stats.to_csv(output + ".binned.stats", sep="\t", index=False, float_format="%.6f", na_rep="NaN")
+
 if __name__ == "__main__":
     print("INIZIO del calcolo della identità stratificando i dati per qualità delle basi")
 
@@ -210,24 +236,30 @@ if __name__ == "__main__":
     VCF=sys.argv[2]
     output=sys.argv[3]
 
-    if not os.path.exists(bam):
-        print("Il file pileup non esiste:", bam)
-        sys.exit(1)
+    # if not os.path.exists(bam):
+    #     print("Il file pileup non esiste:", bam)
+    #     sys.exit(1)
 
-    if not os.path.exists(VCF):
-        print("Il file VCF non esiste:", VCF)
-        sys.exit(1)
+    # if not os.path.exists(VCF):
+    #     print("Il file VCF non esiste:", VCF)
+    #     sys.exit(1)
 
-    print("BAM:", bam)
-    print("VCF:", VCF)
-    print("Output:", output)
+    # print("BAM:", bam)
+    # print("VCF:", VCF)
+    # print("Output:", output)
 
-    calculate_stratified_identity(bam, VCF, output)
+    # calculate_stratified_identity(bam, VCF, output)
 
-    print("FINE calcolo dell'identità...")
+    # print("FINE calcolo dell'identità...")
 
-    print("INIZIO del calcolo delle statistiche")
+    # print("INIZIO del calcolo delle statistiche")
 
-    extract_identity_statistics(output)
+    # extract_identity_statistics(output)
 
-    print("FINE del calcolo delle statistiche")
+    # print("FINE del calcolo delle statistiche")
+
+    print("INIZIO del calcolo delle statistiche binnate per intervalli di qualità")
+
+    extract_binned_identity_statistics(output)
+
+    print("FINE del calcolo delle statistiche binnate per intervalli di qualità")

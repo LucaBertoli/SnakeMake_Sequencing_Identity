@@ -8,29 +8,30 @@ import os
 
 colori_matplotlib = [
     "r", "b", "g", "c", "m", "y", "k",  # Colori di base
+    "royalblue", "limegreen", "tomato", "deepskyblue", "darkorchid", "goldenrod", "dimgray",  # Colori brillanti
+    "dodgerblue", "springgreen", "salmon", "skyblue", "mediumorchid", "khaki", "lightgray",  # Altri colori brillanti
+    "cornflowerblue", "palegreen", "lightcoral", "lightcyan", "lightpink", "lightyellow", "silver",  # Colori chiari
+    "steelblue", "springgreen", "lightsalmon", "powderblue", "mediumvioletred", "gold", "gainsboro",  # Altri colori chiari
+    "cornflowerblue", "chartreuse", "darkorange", "cadetblue", "mediumslateblue", "darkkhaki", "beige",  # Altri colori
+    "mediumblue", "mediumseagreen", "crimson", "darkturquoise", "darkslategray", "olive", "floralwhite",  # Altri colori
+    "mediumslateblue", "chartreuse", "darkorange", "cadetblue", "mediumslateblue", "darkkhaki", "beige",  # Altri colori
 ]
 
-legend_config = [
-    Patch(color='r', label='seqWell IlluminaPrep_A02'),
-    # Patch(color='g', label='Euroclone'),
-    # Patch(color='r', label='19/02/2024'),
-]
+label=["SALUS EVO", "Illumina NovaSeq X", "Illumina NovaSeq 6000", "Element AVITI", "GeneMind"]
 
 fig, ax = plt.subplots(figsize=(10, 8))
-
 for i in range(1, len(sys.argv)):
     dir = sys.argv[i]
-    print(dir)
 
     df = pd.read_csv(dir, sep="\t")
     df = df.dropna()
-    df["identity_filtered"] = df["identity_filtered"] * 100
+    df["identity_with_ins_filtered"] = df["identity_with_ins_filtered"] * 100
 
     color = colori_matplotlib[(i-1) % len(colori_matplotlib)]
-    label = os.path.basename(os.path.dirname(dir))
-    ax.plot(df['BaseQuality'], df['identity_filtered'], marker='o', color=color, label=label, linewidth=0.5, markersize=5)
+    # label = os.path.basename(os.path.dirname(os.path.abspath(dir)))
+    ax.plot(df['BaseQuality'], df['identity_with_ins_filtered'], marker='o', color=color, label=label[i-1], linewidth=0.5, markersize=5)
 
-ax.set_title('Stratified Identity by Base Quality')
+ax.set_title('Stratified Identity by Base Quality (mismatch + indel)')
 ax.set_xlabel('Base Quality (Phred)')
 ax.set_ylabel('Identity (%)')
 
@@ -40,4 +41,4 @@ ax.set_yticks(np.arange(0, 105, 5))
 ax.grid()
 ax.legend()
 plt.tight_layout()
-plt.savefig("identity_plot.png")
+plt.savefig("identity_plot_mismatch_plus_indel.png")
