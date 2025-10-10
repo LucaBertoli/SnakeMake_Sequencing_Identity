@@ -119,10 +119,7 @@ def calculate_stratified_identity(bam, vcf, output):
                 continue
             
             chrom = bam.get_reference_name(read.reference_id)
-            read_start = read.reference_start
-            read_alignment_length = read.query_alignment_length
             mismatch_positions = get_mismatch_positions(read)
-            aligned_pairs = read.get_aligned_pairs(matches_only=False, with_seq=False, with_cigar=True)
             mismatch_positions = set(get_mismatch_positions(read))
 
             # Scorriamo tutte le coppie allineate (base della read ↔ posizione sul riferimento)
@@ -236,27 +233,27 @@ if __name__ == "__main__":
     VCF=sys.argv[2]
     output=sys.argv[3]
 
-    # if not os.path.exists(bam):
-    #     print("Il file pileup non esiste:", bam)
-    #     sys.exit(1)
+    if not os.path.exists(bam):
+        print("Il file pileup non esiste:", bam)
+        sys.exit(1)
 
-    # if not os.path.exists(VCF):
-    #     print("Il file VCF non esiste:", VCF)
-    #     sys.exit(1)
+    if not os.path.exists(VCF):
+        print("Il file VCF non esiste:", VCF)
+        sys.exit(1)
 
-    # print("BAM:", bam)
-    # print("VCF:", VCF)
-    # print("Output:", output)
+    print("BAM:", bam)
+    print("VCF:", VCF)
+    print("Output:", output)
 
-    # calculate_stratified_identity(bam, VCF, output)
+    calculate_stratified_identity(bam, VCF, output)
 
-    # print("FINE calcolo dell'identità...")
+    print("FINE calcolo dell'identità...")
 
-    # print("INIZIO del calcolo delle statistiche")
+    print("INIZIO del calcolo delle statistiche")
 
-    # extract_identity_statistics(output)
+    extract_identity_statistics(output)
 
-    # print("FINE del calcolo delle statistiche")
+    print("FINE del calcolo delle statistiche")
 
     print("INIZIO del calcolo delle statistiche binnate per intervalli di qualità")
 
