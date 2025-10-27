@@ -16,7 +16,7 @@ colori_matplotlib = [
 ]
 
 
-label = ["SALUS", "Illumina NovaSeqX", "Illumina NovaSeq 6000", "Element AVITI", "GeneMind"]
+label = ["SALUS", "Illumina NovaSeqX", "Element AVITI", "GeneMind", "MGI G400"]
 
 fig, ax = plt.subplots(figsize=(10, 8))
 
@@ -62,7 +62,7 @@ ax.set_xlabel('Base Quality Bin')
 ax.set_ylabel('Identity (%)')
 
 ax.set_yticks(np.arange(0, 105, 1))
-ax.set_ylim(80, 105)
+ax.set_ylim(83, 103)
 ax.grid(alpha=0.3)
 ax.legend()
 plt.tight_layout()

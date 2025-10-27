@@ -77,8 +77,6 @@ def load_variant_positions(vcf_path):
                     ins_start = pos - 1
                     ins_end = pos - 1 + ins_len
                     indel_dict[chrom].add((ins_start, ins_end, 'I'))
-
-    
     print("fine caricamento delle posizioni delle varianti dal VCF:", vcf_path)
     return snv_dict, indel_dict
 
@@ -149,7 +147,6 @@ def calculate_stratified_identity(bam, vcf, output):
                         )
                     else:
                         match_found = False
-            
                     if match_found:
                         base_quality_dictionary[str(q)]['insertion_correct'] += 1
                     else:

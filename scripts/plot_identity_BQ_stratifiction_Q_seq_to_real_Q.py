@@ -19,32 +19,28 @@ colori_matplotlib = [
 
 label=["SALUS EVO", "Illumina NovaSeq X", "Element AVITI", "GeneMind", "MGI G400"]
 
-fig, ax = plt.subplots(figsize=(10, 8))
+fig, ax = plt.subplots(figsize=(8, 8))
 for i in range(1, len(sys.argv)):
     dir = sys.argv[i]
 
     df = pd.read_csv(dir, sep="\t")
     df = df.dropna()
-    df["identity_with_ins_filtered"] = df["identity_with_ins_filtered"] * 100
-
+    df["identity_with_ins_filtered"] = df["identity_with_ins_filtered"].apply(lambda x: -10*np.log10(1 - x))
+    
     color = colori_matplotlib[(i-1) % len(colori_matplotlib)]
     # label = os.path.basename(os.path.dirname(os.path.abspath(dir)))
     ax.plot(df['BaseQuality'], df['identity_with_ins_filtered'], marker='o', color=color, label=label[i-1], linewidth=0.5, markersize=5)
 
-ax.set_title('Stratified Identity by Base Quality (mismatch + indel)')
-ax.set_xlabel('Base Quality (Phred)')
-ax.set_ylabel('Identity (%)')
+ax.set_title('Sequencer-based Qscore vs identity-based Qscore (mismatch + indel)')
+ax.set_xlabel('Sequencer Qscore (Phred)')
+ax.set_ylabel('Identity-based Qscore (Phred)')
 
 ax.set_xticks(np.arange(0, max(df['BaseQuality']) + 1, 5))
-# ax.set_yticks(np.arange(0, 105, 5))
+ax.set_yticks(np.arange(0, max(df['identity_with_ins_filtered']) + 1, 5))
 
-#y and x lim
-ax.set_yticks(np.arange(98, 101, 0.5))
-ax.set_xticks(np.arange(20, 45, 2))
-ax.set_ylim(98, 101)
-ax.set_xlim(20, 46)
+ax.plot([-5, max(df['BaseQuality']) + 5], [-5, max(df['BaseQuality']) + 5], 'k--', linewidth=1)
 
 ax.grid()
 ax.legend()
 plt.tight_layout()
-plt.savefig("identity_plot_ylim.png")
+plt.savefig("identity_plot_Q_seq_to_real_Q.png")
