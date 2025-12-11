@@ -1,0 +1,11 @@
+# Cartelle di dati pesanti e file di benchmark
+Element_WGS/
+GeneMind_WGS/
+HG001_GRCh38_1_22_v4.2.1_benchmark.bed
+HG001_GRCh38_1_22_v4.2.1_benchmark.vcf.gz
+HG001_GRCh38_1_22_v4.2.1_benchmark.vcf.gz.tbi
+ILLUMINA_NovaSeq6000_WGS/
+ILLUMINA_NovaSeqX_WGS/
+MGI/
+Roche_SBX/
+SnakeMake_Sequencing_Identity/data/
