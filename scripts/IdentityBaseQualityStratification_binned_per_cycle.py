@@ -130,7 +130,7 @@ def get_cycle(read, query_pos):
 # FUNZIONE PRINCIPALE
 ############################################
 
-def calculate_identity_by_cycle_and_quality(bam_path, vcf_path, output_prefix):
+def calculate_identity_by_cycle_and_quality(bam_path, vcf_path, output_prefix, mode):
     snv_dict, indel_dict = load_variant_positions(vcf_path)
     bam = pysam.AlignmentFile(bam_path, "rb")
 
@@ -141,7 +141,12 @@ def calculate_identity_by_cycle_and_quality(bam_path, vcf_path, output_prefix):
     # Conta il numero totale di reads nel BAM (richiede .bai)
     try:
         print("Conta il numero totale di reads nel BAM...")
-        total_reads = bam.count()
+        if mode == "all":
+            total_reads = bam.count(until_eof=True)
+        elif mode == "read1":
+            total_reads = bam.count(until_eof=True, read_callback=lambda r: r.is_read1)
+        elif mode == "read2":
+            total_reads = bam.count(until_eof=True, read_callback=lambda r: r.is_read2)
         print(total_reads, " reads totali nel BAM.")
     except ValueError:
         print("Attenzione: BAM non indicizzato, impossibile stimare il numero totale di reads.")
@@ -168,6 +173,10 @@ def calculate_identity_by_cycle_and_quality(bam_path, vcf_path, output_prefix):
     warned = False
 
     for read in bam.fetch(until_eof=True):
+        if mode == "read1" and read.is_read2:
+            continue
+        if mode == "read2" and read.is_read1:
+            continue
         if read.is_unmapped or read.is_secondary or read.is_supplementary:
             continue
 
@@ -311,7 +320,15 @@ if __name__ == "__main__":
     bam = sys.argv[1]
     vcf = sys.argv[2]
     output = sys.argv[3]
+    mode = sys.argv[4] if len(sys.argv) > 4 else "all"
 
+    if not len(sys.argv) in [4,5]:
+        print("Uso: python IdentityBaseQualityStratification_binned_per_cycle.py <input.bam> <input.vcf> <output_prefix> [mode]")
+        print("Dove 'mode' può essere 'all' (default), 'read1' o 'read2'")
+        sys.exit(1) 
+    if not mode in ["all", "read1", "read2", "Read1", "Read2"]:
+        print("Errore: modalità non valida. Usare 'all', 'read1' o 'read2'.")
+        sys.exit(1)
     if not os.path.exists(bam):
         print("Errore: file BAM non trovato:", bam)
         sys.exit(1)
@@ -319,7 +336,12 @@ if __name__ == "__main__":
         print("Errore: file VCF non trovato:", vcf)
         sys.exit(1)
 
-    calculate_identity_by_cycle_and_quality(bam, vcf, output)
+    print(f"file BAM: {bam}")
+    print(f"file VCF: {vcf}")
+    print(f"output prefix: {output}")
+    print(f"modalità: {mode}")
+
+    calculate_identity_by_cycle_and_quality(bam, vcf, output, mode)
 
     print("FINE calcolo identità per qualità e ciclo")
     print("File prodotti:")

@@ -325,4 +325,4 @@ if __name__ == "__main__":
     print("FINE calcolo identità per qualità e ciclo")
     print("File prodotti:")
     print(" -", output1)
-    print(" -", output2")
+    print(" -", output2)
