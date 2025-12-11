@@ -14,12 +14,12 @@
 #
 # Output
 # ------
-#   - <output1>       : tabella qualità per ciclo con identità calcolata
-#   - <output2>       : tabella con statistiche di identità per bin di qualità e ciclo
+#   - <output>.gz       : tabella dei conteggi per qualità
+#   - <output>.gz.stats : tabella con statistiche di identità
 
 # Uso
 # ---
-#   python script.py <input.bam> <input.vcf> <output1.tsv> <output2.tsv>
+#   python script.py <input.bam> <input.vcf> <output.gz>
 
 #esempio di esecuzione:
 # nohup python -u ../../../scripts/IdentityBaseQualityStratification_binned_per_cycle.py NA12878_KAPA_HCR.bam ../../../HG001_GRCh38_1_22_v4.2.1_benchmark.vcf.gz IDENTITY_NA12878_KAPA_full_basequal_strat > IDENTITY_NA12878_KAPA_full_basequal_strat_cycle.log &
@@ -130,7 +130,7 @@ def get_cycle(read, query_pos):
 # FUNZIONE PRINCIPALE
 ############################################
 
-def calculate_identity_by_cycle_and_quality(bam_path, vcf_path, output1, output2):
+def calculate_identity_by_cycle_and_quality(bam_path, vcf_path, output_prefix, mode):
     snv_dict, indel_dict = load_variant_positions(vcf_path)
     bam = pysam.AlignmentFile(bam_path, "rb")
 
@@ -141,7 +141,12 @@ def calculate_identity_by_cycle_and_quality(bam_path, vcf_path, output1, output2
     # Conta il numero totale di reads nel BAM (richiede .bai)
     try:
         print("Conta il numero totale di reads nel BAM...")
-        total_reads = bam.count()
+        if mode == "all":
+            total_reads = bam.count(until_eof=True)
+        elif mode == "read1":
+            total_reads = bam.count(until_eof=True, read_callback=lambda r: r.is_read1)
+        elif mode == "read2":
+            total_reads = bam.count(until_eof=True, read_callback=lambda r: r.is_read2)
         print(total_reads, " reads totali nel BAM.")
     except ValueError:
         print("Attenzione: BAM non indicizzato, impossibile stimare il numero totale di reads.")
@@ -168,6 +173,10 @@ def calculate_identity_by_cycle_and_quality(bam_path, vcf_path, output1, output2
     warned = False
 
     for read in bam.fetch(until_eof=True):
+        if mode == "read1" and read.is_read2:
+            continue
+        if mode == "read2" and read.is_read1:
+            continue
         if read.is_unmapped or read.is_secondary or read.is_supplementary:
             continue
 
@@ -263,17 +272,17 @@ def calculate_identity_by_cycle_and_quality(bam_path, vcf_path, output1, output2
             })
 
     df = pd.DataFrame(records).sort_values(by=['BaseQuality','Cycle'])
-    df.to_csv(output1, sep="\t", index=False, float_format="%.6f", na_rep="NaN")
+    df.to_csv(output_prefix + ".by_quality_cycle.tsv", sep="\t", index=False, float_format="%.6f", na_rep="NaN")
 
     # Calcola anche la versione per bin
-    extract_binned_identity_by_cycle_and_quality(df, output2)
+    extract_binned_identity_by_cycle_and_quality(df, output_prefix)
 
 
 ############################################
 # FUNZIONE PER BIN DI QUALITÀ
 ############################################
 
-def extract_binned_identity_by_cycle_and_quality(df, output2):
+def extract_binned_identity_by_cycle_and_quality(df, output_prefix):
     bins = [0, 3, 18, 30, 51]
     labels = ['0-2', '3-17', '18-29', '30+']
     df['BQ_bin'] = pd.cut(df['BaseQuality'], bins=bins, labels=labels, right=False)
@@ -298,7 +307,7 @@ def extract_binned_identity_by_cycle_and_quality(df, output2):
     grouped['identity_with_ins_filtered'] = 1 - ((grouped['mismatch_error'] + grouped['insertion_error']) / total_all)
 
     grouped = grouped.sort_values(by=['BQ_bin','Cycle'])
-    grouped.to_csv(output2, sep="\t", index=False, float_format="%.6f", na_rep="NaN")
+    grouped.to_csv(output_prefix + ".by_bin_cycle.tsv", sep="\t", index=False, float_format="%.6f", na_rep="NaN")
 
 
 ############################################
@@ -310,9 +319,16 @@ if __name__ == "__main__":
 
     bam = sys.argv[1]
     vcf = sys.argv[2]
-    output1 = sys.argv[3]
-    output2 = sys.argv[4]
+    output = sys.argv[3]
+    mode = sys.argv[4] if len(sys.argv) > 4 else "all"
 
+    if not len(sys.argv) in [4,5]:
+        print("Uso: python IdentityBaseQualityStratification_binned_per_cycle.py <input.bam> <input.vcf> <output_prefix> [mode]")
+        print("Dove 'mode' può essere 'all' (default), 'read1' o 'read2'")
+        sys.exit(1) 
+    if not mode in ["all", "read1", "read2", "Read1", "Read2"]:
+        print("Errore: modalità non valida. Usare 'all', 'read1' o 'read2'.")
+        sys.exit(1)
     if not os.path.exists(bam):
         print("Errore: file BAM non trovato:", bam)
         sys.exit(1)
@@ -320,9 +336,14 @@ if __name__ == "__main__":
         print("Errore: file VCF non trovato:", vcf)
         sys.exit(1)
 
-    calculate_identity_by_cycle_and_quality(bam, vcf, output1, output2)
+    print(f"file BAM: {bam}")
+    print(f"file VCF: {vcf}")
+    print(f"output prefix: {output}")
+    print(f"modalità: {mode}")
+
+    calculate_identity_by_cycle_and_quality(bam, vcf, output, mode)
 
     print("FINE calcolo identità per qualità e ciclo")
     print("File prodotti:")
-    print(" -", output1)
-    print(" -", output2)
+    print(" -", output + ".by_quality_cycle.tsv")
+    print(" -", output + ".by_bin_cycle.tsv")

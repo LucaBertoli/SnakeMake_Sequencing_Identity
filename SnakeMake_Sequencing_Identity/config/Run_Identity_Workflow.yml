@@ -4,6 +4,6 @@ bam_path: "/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/Roche
 vcf: "/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/SnakeMake_Sequencing_Identity/data/HG001_GRCh38_1_22_v4.2.1_benchmark.vcf.gz"
 FASTA: "/home/db/hg38_bwa2/hg38_chr1-22-XYM/Homo_sapiens_assembly38_noalt.fasta"
 BED: "/home/db/hg38_bwa2/hg38_chr1-22-XYM/Homo_sapiens_assembly38_noalt.bed"
-benchmark_bed: "/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/HG001_GRCh38_1_22_v4.2.1_benchmark.bed"
+benchmark_bed: "/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/SnakeMake_Sequencing_Identity/data/HG001_GRCh38_1_22_v4.2.1_benchmark.bed"
 script_folder: "/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/SnakeMake_Sequencing_Identity/scripts/"
-
+threads_error_distribution: 5
