@@ -4,26 +4,28 @@
 #First, the plot is created for the entire dataset, selecting 10M reads (5M fragments).
 #Second, an analogous subplot is created separating Read1 and Read2 (5M reads each)
 
-rule identity_insert_metrics:
+rule identity_insert_metrics_plot:
     input:
-        tsv="{output_name}/IDENTITY_{output_name}_full_all_insert_size_strat.tsv.gz"
+        tsv="{output_name}/IDENTITY_{output_name}_insert_size_strat_{read_type}.tsv.gz"
     output:
-        plot="{output_name}/IDENTITY_{output_name}_full_all_insert_size_strat_10M_per_bin.png"
+        plot="{output_name}/IDENTITY_{output_name}_insert_size_strat_{read_type}_10M_per_bin.png"
     params:
-		script_folder=config["script_folder"],
+        script_folder=config["script_folder"],
+        read_param=lambda wildcards: "" if wildcards.read_type == "all" else wildcards.read_type
     shell:
         """
         python {params.script_folder}/IdentityInsertMetrics_plot_subplot_noQscore.py -i {input.tsv} -o {output.plot} --y-margin 0.05 --max-reads-per-bin 10000000
         """
 
 
-rule identity_insert_metrics_R1_R2:
+rule identity_insert_metrics_plot_R1_R2:
     input:
-        tsv="{output_name}/IDENTITY_{output_name}_full_all_insert_size_strat.tsv.gz"
+        tsv="{output_name}/IDENTITY_{output_name}_insert_size_strat_{read_type}.tsv.gz"
     output:
-        plot="{output_name}/IDENTITY_{output_name}_full_all_insert_size_strat_5M_per_bin_R1_R2.png"
+        plot="{output_name}/IDENTITY_{output_name}_insert_size_strat_{read_type}_5M_per_bin_R1_R2.png"
     params:
-		script_folder=config["script_folder"],
+        script_folder=config["script_folder"],
+        read_param=lambda wildcards: "" if wildcards.read_type == "all" else wildcards.read_type
     shell:
         """
         python {params.script_folder}/IdentityInsertMetrics_plot_subplot_noQscore_R1_R2.py -i {input.tsv} -o {output.plot} --y-margin 0.05 --max-reads-per-bin 10000000

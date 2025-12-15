@@ -9,3 +9,4 @@ ILLUMINA_NovaSeqX_WGS/
 MGI/
 Roche_SBX/
 SnakeMake_Sequencing_Identity/data/
+SnakeMake_Sequencing_Identity/test/

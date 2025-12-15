@@ -10,6 +10,8 @@ rule identity_calculation_reads_qual_30:
 	params:
 		script_folder=config["script_folder"],
 		read_param=lambda wildcards: "" if wildcards.read_type == "all" else wildcards.read_type
+	wildcard_constraints:
+		read_type = "all|read1|read2"
 	shell:
 		"""
 		python  {params.script_folder}/IdentityRevelations.py {input.bam} {input.vcf} {output.tsv} {params.read_param}

@@ -8,6 +8,8 @@ rule identity_stats:
 		stats = "{output_name}/IDENTITY_{output_name}_full_{read_type}.tsv.gz.stats"
 	params:
 		script_folder=config["script_folder"]
+	wildcard_constraints:
+		read_type="read1|read2|all"
 	shell:
 		"""
 		python {params.script_folder}/IdentityRevelations_stats.py {input.tsv} > {output.stats}

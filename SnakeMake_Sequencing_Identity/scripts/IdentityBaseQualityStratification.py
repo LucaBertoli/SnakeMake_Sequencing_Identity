@@ -119,10 +119,7 @@ def calculate_stratified_identity(bam, vcf, output):
                 continue
             
             chrom = bam.get_reference_name(read.reference_id)
-            read_start = read.reference_start
-            read_alignment_length = read.query_alignment_length
             mismatch_positions = get_mismatch_positions(read)
-            aligned_pairs = read.get_aligned_pairs(matches_only=False, with_seq=False, with_cigar=True)
             mismatch_positions = set(get_mismatch_positions(read))
 
             # Scorriamo tutte le coppie allineate (base della read ↔ posizione sul riferimento)
@@ -206,8 +203,8 @@ def extract_identity_statistics(output): ## da modificare aggiungendo i match er
 def extract_binned_identity_statistics(output):
     df = pd.read_csv(output, sep="\t")
 
-    bins = [0, 3, 18, 30, 51]
-    labels = ['0-2', '3-17', '18-29', '30+']
+    bins = [0, 20, 30, 51]
+    labels = ['0-19', '20-29', '30+']
     df['BQ_bin'] = pd.cut(df['BaseQuality'], bins=bins, labels=labels, right=False)
 
     binned_stats = df.groupby('BQ_bin', observed=False).agg({
