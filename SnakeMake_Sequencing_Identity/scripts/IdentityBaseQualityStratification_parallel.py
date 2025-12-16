@@ -44,6 +44,9 @@ import re
 import multiprocessing as mp
 from collections import defaultdict
 
+############################################
+# FUNZIONE PER CARICARE POSIZIONI VARIANTI DAL VCF
+############################################
 def load_variant_positions(vcf_path):
     snv_dict = defaultdict(set)
     indel_dict = defaultdict(set)
@@ -67,21 +70,31 @@ def load_variant_positions(vcf_path):
                     indel_dict[chrom].add((ins_start, ins_end, 'I'))
     return snv_dict, indel_dict
 
+############################################
+# FUNZIONE PER OTTENERE POSIZIONI MISMATCH DA TAG MD
+############################################
 def get_mismatch_positions(read):
     md = read.get_tag('MD') if read.has_tag('MD') else ''
     if not md:
         return set()
+
     mismatches = set()
-    pos = read.reference_start
+    pos = read.reference_start  # 0-based
+
     for match in re.finditer(r"(\d+)|([A-Z]|\^[A-Z]+)", md):
         if match.group(1):
             pos += int(match.group(1))
+        elif match.group(2).startswith('^'):
+            pos += len(match.group(2)) - 1
         else:
-            if not match.group(2).startswith('^'):
-                mismatches.add(pos)
+            mismatches.add(pos)
             pos += 1
+
     return mismatches
 
+############################################
+# FUNZIONE PER PROCESSARE UN SINGOLO CROMOSOMA
+############################################
 def process_chromosome(args):
     bam_path, chrom, snv_dict, indel_dict = args
     bam = pysam.AlignmentFile(bam_path, "rb")
@@ -133,6 +146,9 @@ def process_chromosome(args):
     print(f"[PID {os.getpid()}] ✔ Finished chromosome {chrom}", flush=True)
     return bq_dict
 
+############################################
+# FUNZIONE PER UNIRE I DIZIONARI DEI PROCESSI PARALLELI
+############################################
 def merge_bq_dicts(dicts):
     merged = {str(i): {'match':0,'match_correct':0,'match_error':0,
                        'mismatch':0,'mismatch_correct':0,'mismatch_error':0,
@@ -144,6 +160,9 @@ def merge_bq_dicts(dicts):
                 merged[k][field] += d[k][field]
     return merged
 
+############################################
+# FUNZIONE PER LANCIARE LA PARALLELIZZAZIONE E CALCOLARE L'IDENTITÀ STRATIFICATA
+############################################
 def calculate_stratified_identity_parallel(bam_path, vcf_path, output_path, threads=4):
     snv_dict, indel_dict = load_variant_positions(vcf_path)
 
@@ -170,6 +189,9 @@ def calculate_stratified_identity_parallel(bam_path, vcf_path, output_path, thre
 
     print(f"✔ Done → Saved: {output_path}")
 
+############################################
+# FUNZIONE PER STRATIFICARE LE STATISTICHE DI IDENTITÀ IN BIN DI QUALITÀ
+############################################
 def extract_binned_identity_statistics(output_tot, output_binned):
     df = pd.read_csv(output_tot, sep="\t")
 
@@ -196,7 +218,9 @@ def extract_binned_identity_statistics(output_tot, output_binned):
 
     binned_stats.to_csv(output_binned, sep="\t", index=False, float_format="%.6f", na_rep="NaN")
 
-###############################################################################################
+############################################
+# MAIN
+############################################
 if __name__ == "__main__":
     print("INIZIO del calcolo della identità stratificando i dati per qualità delle basi")
 

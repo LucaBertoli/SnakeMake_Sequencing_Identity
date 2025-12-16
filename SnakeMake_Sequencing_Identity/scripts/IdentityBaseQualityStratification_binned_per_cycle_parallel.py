@@ -39,20 +39,24 @@ def load_variant_positions(vcf_path):
 # FUNZIONE PER OTTENERE POSIZIONI MISMATCH DA TAG MD
 ############################################
 def get_mismatch_positions(read):
-    """Ritorna le posizioni genomiche dei mismatch da un record BAM usando il tag MD."""
     md = read.get_tag('MD') if read.has_tag('MD') else ''
     if not md:
         return set()
+
     mismatches = set()
-    pos = read.reference_start
+    pos = read.reference_start  # 0-based
+
     for match in re.finditer(r"(\d+)|([A-Z]|\^[A-Z]+)", md):
         if match.group(1):
             pos += int(match.group(1))
+        elif match.group(2).startswith('^'):
+            pos += len(match.group(2)) - 1
         else:
-            if not match.group(2).startswith('^'):
-                mismatches.add(pos)
+            mismatches.add(pos)
             pos += 1
+
     return mismatches
+
 
 ############################################
 # FUNZIONE PER CALCOLO CICLO DI SEQUENZIAMENTO
@@ -78,6 +82,33 @@ def get_cycle(read, query_pos):
     return cycle
 
 ############################################
+# DEFINIZIONE STRUTTURA DATI DINAMICA E FUNZIONE DI CONVERSIONE
+############################################
+def per_quality_dict():
+    """Inizializza e ritorna la struttura dati dinamica per qualità e ciclo."""
+    per_quality = defaultdict(lambda: defaultdict(lambda: {
+        'match': 0,
+        'match_correct': 0,
+        'match_error': 0,
+        'mismatch': 0,
+        'mismatch_correct': 0,
+        'mismatch_error': 0,
+        'insertion': 0,
+        'insertion_correct': 0,
+        'insertion_error': 0
+    }))
+    return per_quality
+
+def dictify(d):
+    """
+    Converte ricorsivamente un defaultdict annidato in un dict normale.
+    Utile per rendere serializzabili i risultati per multiprocessing.
+    """
+    if isinstance(d, defaultdict):
+        d = {k: dictify(v) for k, v in d.items()}
+    return d
+
+############################################
 # FUNZIONE PER PROCESSARE UN SINGOLO CROMOSOMA
 ############################################
 def process_chromosome(args):
@@ -85,11 +116,7 @@ def process_chromosome(args):
     bam = pysam.AlignmentFile(bam_path, "rb")
 
     # Inizializza struttura dati
-    per_quality = defaultdict(lambda: defaultdict(lambda: {
-        'match': 0, 'match_correct': 0, 'match_error': 0,
-        'mismatch': 0, 'mismatch_correct': 0, 'mismatch_error': 0,
-        'insertion': 0, 'insertion_correct': 0, 'insertion_error': 0
-    }))
+    per_quality = per_quality_dict()
 
     processed = 0
     bad_cycle_count = 0
@@ -151,18 +178,15 @@ def process_chromosome(args):
                 last_ref_pos = ref_pos
 
     bam.close()
+    per_quality_dictified = dictify(per_quality)
     print(f"✔ Cromosoma {chrom} completato. Processate {processed} reads, ignorati {bad_cycle_count} cicli fuori range.")
-    return per_quality
+    return per_quality_dictified
 
 ############################################
 # FUNZIONE PER FONDO DI DIZIONARI
 ############################################
 def merge_per_quality_dicts(dicts):
-    merged = defaultdict(lambda: defaultdict(lambda: {
-        'match': 0, 'match_correct': 0, 'match_error': 0,
-        'mismatch': 0, 'mismatch_correct': 0, 'mismatch_error': 0,
-        'insertion': 0, 'insertion_correct': 0, 'insertion_error': 0
-    }))
+    merged = per_quality_dict()
     for d in dicts:
         for q, cycles in d.items():
             for cycle, vals in cycles.items():
@@ -189,9 +213,12 @@ def save_results(per_quality, output_tot, output_binned):
                 'identity_with_ins_filtered': 1 - ((vals['mismatch_error']+vals['insertion_error'])/total_all) if total_all>0 else np.nan
             })
     df = pd.DataFrame(records).sort_values(by=['BaseQuality','Cycle'])
-    df.to_csv(output_tot + ".by_quality_cycle.tsv", sep="\t", index=False, float_format="%.6f", na_rep="NaN")
+    df.to_csv(output_tot, sep="\t", index=False, float_format="%.6f", na_rep="NaN")
     extract_binned_identity_by_cycle_and_quality(df, output_binned)
 
+############################################
+# FUNZIONE PER CALCOLO IDENTITÀ BINNED PER CICLO E QUALITÀ
+############################################
 def extract_binned_identity_by_cycle_and_quality(df, output_binned):
     bins = [0,20,30,51]
     labels = ['0-19','20-29','30+']
@@ -211,7 +238,7 @@ def extract_binned_identity_by_cycle_and_quality(df, output_binned):
     grouped.to_csv(output_binned, sep="\t", index=False, float_format="%.6f", na_rep="NaN")
 
 ############################################
-# FUNZIONE PRINCIPALE PARALLELIZZATA
+# FUNZIONE PER LANCIARE LA PARALLELIZZAZIONE
 ############################################
 def calculate_identity_parallel(bam_path, vcf_path, output_tot, output_binned, mode="all", threads=4):
     snv_dict, indel_dict = load_variant_positions(vcf_path)
@@ -254,6 +281,3 @@ if __name__ == "__main__":
 
     calculate_identity_parallel(bam, vcf, output_tot, output_binned, mode, threads)
     print("✔ FINE calcolo identità per qualità e ciclo")
-    print("File prodotti:")
-    print(" -", output_tot)
-    print(" -", output_binned)
