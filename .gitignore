@@ -10,3 +10,6 @@ MGI/
 Roche_SBX/
 SnakeMake_Sequencing_Identity/data/
 SnakeMake_Sequencing_Identity/test/
+test_igv/
+VCF_overlap_mpileup/
+VCF_overlap/
