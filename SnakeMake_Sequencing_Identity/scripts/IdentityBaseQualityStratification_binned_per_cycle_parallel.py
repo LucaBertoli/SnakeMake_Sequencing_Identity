@@ -179,7 +179,7 @@ def process_chromosome(args):
 
     bam.close()
     per_quality_dictified = dictify(per_quality)
-    print(f"✔ Cromosoma {chrom} completato. Processate {processed} reads, ignorati {bad_cycle_count} cicli fuori range.")
+    print(f"✔ Cromosoma {chrom} completato. Ignorati {bad_cycle_count} cicli fuori range.")
     return per_quality_dictified
 
 ############################################
