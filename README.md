@@ -1,12 +1,74 @@
-Identity Calculation Workflow
+# Identity Calculation Workflow
+## General description
 
+## Repository content
 This repository contains the code used to empirically evaluate sequencing quality and accuracy. It comprehends:
 - SnakeMake_Sequencing_Identity: snakemake pipeline used to automatically produce the final report files
 - scripts: collection of bash and python script used for the trimming, alignment, variant calling and graphical visualization.
-- plots: legacy plots of the results.
+- plots: legacy plots.
 
-The snakeake workflow is:
+The snakeake workflow comprehends the following folders:
 
+- Config
+    - Run_Identity_Workflow.yml configuration yaml file, in which the key paths (input BAM, filtering VCF, filtering BED, etc.) and parameters (thread usage for multithread processing) should be specified.
+- snakefile
+    - Run_Identity_Workflow.smk file containing the pipeline main (rule all).
+- rules
+    - folder containing 17 snakefile, each containing independent processing rules executed by the main snakefile.
+- scripts
+    - folder containing 14 python scripts, executed by the workflow's rules.
+
+The scripts folder contains the following graphical visualization Jupyter notebooks:
+- plot_identity_BQ_stratifiction.ipynb
+    - python script plotting the sequencing quality-stratified results 
+- plot_identity_BQ_stratifiction_per_cycle.ipynb
+    - python script plotting the sequencing-cycle stratified results
+The paths reported in these jupyter notebooks need to be modified accordingly.
+## Download
+The current repository should be locally cloned:
+
+    git clone https://github.com/Lab-Delledonne-bioinfo/calcolo_identita_sequenze_Sequenziatori
+
+
+## Dependencies
+The workflow has the following requirements:
+- snakemake
+- python3
+- bedtools
+- samtools
+  
+Additionally, the following python libraries are required:
+- pysam
+- sys
+- gzip
+- math
+- collections
+- re
+- multiprocessing
+- os
+- argparse
+- numpy
+- csv
+- pandas
+- matplotlib
+- seaborn
+
+## Usage
+The user should create an output directory and copy inside it the configuration and snakefile:
+
+    mkdir results
+    cd results
+    cp <repo path>/SnakeMake_Sequencing_Identity/config/Run_Identity_Workflow.yml config.yaml
+    cp <repo path>/SnakeMake_Sequencing_Identity/snakefile/Run_Identity_Workflow.smk snakefile
+
+Then the user should modify the config.yaml according to its experimental settings, afterward the pipeline is run using:
+
+    snakemake --cores 25
+
+Use a multithreading option (--cores) coherent with the config.yaml file and appropriate for the infrostructure used.
+
+
+## Further information
 Run_Identity_Workflow.py
     This script takes the following inputs:
 
