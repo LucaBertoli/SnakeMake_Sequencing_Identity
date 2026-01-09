@@ -7,5 +7,4 @@ BED: "/home/db/hg38_bwa2/hg38_chr1-22-XYM/Homo_sapiens_assembly38_noalt.bed"
 benchmark_bed: "/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/SnakeMake_Sequencing_Identity/data/HG001_GRCh38_1_22_v4.2.1_benchmark.bed"
 script_folder: "/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/SnakeMake_Sequencing_Identity/scripts/"
 rules_folder: "/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/SnakeMake_Sequencing_Identity/rules/"
-threads_error_distribution: 25
-threads_quality_stratification: 25
+threads: 25

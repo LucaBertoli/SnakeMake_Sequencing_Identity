@@ -7,9 +7,11 @@ rule identity_calculation_error_distribution_qual_Q30:
 		vcf=config["vcf"]
 	output:
 		tsv="{output_name}/IDENTITY_{output_name}_reads_30_up_LogOfMeans_error_quality_distribution.tsv.gz"
+	threads:
+		config["threads"]
 	params:
 		script_folder=config["script_folder"],
-		threads=config["threads_error_distribution"]
+		threads=config["threads"]
 	shell:
 		"""
 		python {params.script_folder}/IdentityRevelations_error_by_base_quality_distribution.py {input.bam} {input.vcf} {output.tsv} {params.threads}
