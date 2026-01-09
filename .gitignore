@@ -13,3 +13,4 @@ SnakeMake_Sequencing_Identity/test/
 test_igv/
 VCF_overlap_mpileup/
 VCF_overlap/
+VCF_overlap_majority_of_3/
