@@ -107,7 +107,7 @@ def collect_insert_identity_allreads(bam_path, vcf_path, output_path):
 
         for read in bam:
             # considera solo allineamenti primari e mappati
-            if read.is_unmapped or read.is_secondary or read.is_supplementary:
+            if read.is_unmapped or read.is_secondary or read.is_supplementary or read.mapping_quality < 60:
                 continue
 
             # determina tipo di read

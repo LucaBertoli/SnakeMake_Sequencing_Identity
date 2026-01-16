@@ -73,7 +73,7 @@ def process_chromosome(args):
     }
 
     for read in bam.fetch(chrom):
-        if read.is_unmapped or read.is_secondary or read.is_supplementary:
+        if read.is_unmapped or read.is_secondary or read.is_supplementary or read.mapping_quality < 60: ##aggiunto filtraggio per mapping quality, test post consegna tesi
             continue
 
         chrom_ref = bam.get_reference_name(read.reference_id)

@@ -108,7 +108,7 @@ def compute_identity(bam_path, vcf_path, output_path, read_mode="all"):
 
         #esclude le read non allineate, secondarie o supplementari.
         for read in bam:
-            if read.is_unmapped or read.is_secondary or read.is_supplementary:
+            if read.is_unmapped or read.is_secondary or read.is_supplementary or read.mapping_quality < 60: ##aggiunto filtraggio per mapping quality, test post consegna tesi
                 continue
 
             #nel caso in cui si voglia analizzare solo le read di tipo read1 o read2, si filtra in base al flag is_read1 o is_read2.

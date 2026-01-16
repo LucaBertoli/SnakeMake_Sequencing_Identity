@@ -126,7 +126,7 @@ def process_chromosome(args):
             continue
         if mode == "read2" and read.is_read1:
             continue
-        if read.is_unmapped or read.is_secondary or read.is_supplementary:
+        if read.is_unmapped or read.is_secondary or read.is_supplementary or read.mapping_quality < 60:
             continue
 
         processed += 1

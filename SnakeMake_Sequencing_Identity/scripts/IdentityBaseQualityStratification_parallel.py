@@ -106,7 +106,7 @@ def process_chromosome(args):
                for i in range(51)}
 
     for read in bam.fetch(chrom):
-        if read.is_unmapped or read.is_secondary or read.is_supplementary:
+        if read.is_unmapped or read.is_secondary or read.is_supplementary or read.mapping_quality < 60:
             continue
 
         mismatch_positions = get_mismatch_positions(read)
