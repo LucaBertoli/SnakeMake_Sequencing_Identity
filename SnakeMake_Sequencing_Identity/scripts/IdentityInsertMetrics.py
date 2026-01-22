@@ -91,7 +91,7 @@ def compute_identity_filtered_with_indels(read, snv_dict, indel_dict, bam):
     identity_filtered_with_indels = 1 - (
         (len(mismatch_filtered) + num_indel_filtered_bases) / aligned_length_total
     )
-    return identity_filtered_with_indels
+    return aligned_length_total, len(mismatch_filtered), num_indel_filtered_bases, identity_filtered_with_indels
 
 
 # -----------------------------
@@ -103,7 +103,7 @@ def collect_insert_identity_allreads(bam_path, vcf_path, output_path):
     bam = pysam.AlignmentFile(bam_path, "rb")
 
     with gzip.open(output_path, "wt") as out:
-        out.write("read_name\tread_type\tinsert_size\tmean_qual_log\tidentity_filtered_with_indels\n")
+        out.write("read_name\tread_type\tinsert_size\taligned_read_length\tmismatch_filtered\tindel_filtered\tmean_qual_log\tidentity_filtered_with_indels\n")
 
         for read in bam:
             # considera solo allineamenti primari e mappati
@@ -127,9 +127,9 @@ def collect_insert_identity_allreads(bam_path, vcf_path, output_path):
             mean_q = phred_log_mean(read.query_qualities)
 
             # identità filtrata con indel
-            idfwi = compute_identity_filtered_with_indels(read, snv_dict, indel_dict, bam)
+            aligned_read_length, mismatch_filtered, indel_filtered, idfwi = compute_identity_filtered_with_indels(read, snv_dict, indel_dict, bam)
 
-            out.write(f"{read.query_name}\t{read_type}\t{insert_size}\t{mean_q:.3f}\t{idfwi:.6f}\n")
+            out.write(f"{read.query_name}\t{read_type}\t{insert_size}\t{aligned_read_length}\t{mismatch_filtered}\t{indel_filtered}\t{mean_q:.3f}\t{idfwi:.6f}\n")
 
     bam.close()
     print(f"Output scritto in {output_path}")
