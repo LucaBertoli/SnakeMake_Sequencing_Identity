@@ -20,7 +20,7 @@ from matplotlib.lines import Line2D
 import argparse
 import math
 
-def main(tsv_path, output_path, y_margin=0.05, max_reads_per_bin=100_000):
+def main(tsv_path, output_path, y_margin=0.05, max_reads_per_bin=10_000_000):
     bin_data = {}
     bin_full_flags = set()
 
@@ -110,7 +110,7 @@ def main(tsv_path, output_path, y_margin=0.05, max_reads_per_bin=100_000):
     ax2.set_xlabel("Insert size (bp)")
     ax2.tick_params(axis="x", rotation=45)
     ax2.set_title("Read's Error Rate (mismatches + indels)")
-    ax2.set_ylim(0, 0.015)
+    ax2.set_ylim(0, 0.02)
     ax2.yaxis.set_major_formatter(plt.FuncFormatter(lambda y, _: f"{y*100:.1f}"))
 
     # --- Griglia e ticks ---
@@ -140,7 +140,7 @@ if __name__ == "__main__":
     parser.add_argument("-i", "--input", required=True, help="TSV.gz da IdentityInsertMetrics.py")
     parser.add_argument("-o", "--output", required=True, help="File immagine di output (PNG, PDF, ecc.)")
     parser.add_argument("--y-margin", type=float, default=0.05, help="Percentuale margine extra sull'asse Y per Qscore")
-    parser.add_argument("--max-reads-per-bin", type=int, default=100_000, help="Numero massimo di read per bin")
+    parser.add_argument("--max-reads-per-bin", type=int, default=10_000_000, help="Numero massimo di read per bin")
     args = parser.parse_args()
 
     main(args.input, args.output, args.y_margin, args.max_reads_per_bin)
