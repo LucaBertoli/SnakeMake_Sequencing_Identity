@@ -25,6 +25,8 @@ rule all:
 		expand("{output_name}/IDENTITY_{output_name}_insert_size_strat_{read_type}.tsv.gz", output_name=OUTPUT_NAME, read_type=READS),
 		expand("{output_name}/IDENTITY_{output_name}_insert_size_strat_{read_type}_10M_per_bin.png", output_name=OUTPUT_NAME, read_type=READS),
 		expand("{output_name}/IDENTITY_{output_name}_insert_size_strat_{read_type}_5M_per_bin_R1_R2.png", output_name=OUTPUT_NAME, read_type=READS),
+		expand("{output_name}/IDENTITY_{output_name}_insert_size_strat_{read_type}_10M_per_bin_GlobalErrorRate.png", output_name=OUTPUT_NAME, read_type=READS),
+		expand("{output_name}/IDENTITY_{output_name}_insert_size_strat_{read_type}_5M_per_bin_GlobalErrorRate_R1_R2.png", output_name=OUTPUT_NAME, read_type=READS),
 		######## ANALYSIS ON READS WITH AVERAGE QSCORE >=30 ########
 		expand("{output_name}/{output_name}_HCR_reads_30_up_LogOfMeans.bam", output_name=OUTPUT_NAME),
 		expand("{output_name}/IDENTITY_{output_name}_reads_30_up_LogOfMeans_{read_type}.tsv.gz", output_name=OUTPUT_NAME, read_type=READS),
