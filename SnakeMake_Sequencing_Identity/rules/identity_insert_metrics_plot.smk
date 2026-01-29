@@ -13,7 +13,7 @@ rule identity_insert_metrics_plot:
         script_folder=config["script_folder"],
         read_param=lambda wildcards: "" if wildcards.read_type == "all" else wildcards.read_type
     wildcard_constraints:
-        read_type = "all|read1|read2"
+        read_type = "all"
     shell:
         """
         python {params.script_folder}/IdentityInsertMetrics_plot_subplot_noQscore.py -i {input.tsv} -o {output.plot} --y-margin 0.05 --max-reads-per-bin 10000000
@@ -29,7 +29,7 @@ rule identity_insert_metrics_plot_R1_R2:
         script_folder=config["script_folder"],
         read_param=lambda wildcards: "" if wildcards.read_type == "all" else wildcards.read_type
     wildcard_constraints:
-        read_type = "all|read1|read2"
+        read_type = "all"
     shell:
         """
         python {params.script_folder}/IdentityInsertMetrics_plot_subplot_noQscore_R1_R2.py -i {input.tsv} -o {output.plot} --y-margin 0.05 --max-reads-per-bin 10000000
@@ -44,7 +44,7 @@ rule identity_insert_metrics_plot_GlobalErrorRate:
         script_folder=config["script_folder"],
         read_param=lambda wildcards: "" if wildcards.read_type == "all" else wildcards.read_type
     wildcard_constraints:
-        read_type = "all|read1|read2"
+        read_type = "all"
     shell:
         """
         python {params.script_folder}/IdentityInsertMetrics_plot_subplot_noQscore_GlobalErrorRate.py -i {input.tsv} -o {output.plot} --y-margin 0.05 --max-reads-per-bin 10000000
@@ -59,7 +59,7 @@ rule identity_insert_metrics_plot_GlobalErrorRate_R1_R2:
         script_folder=config["script_folder"],
         read_param=lambda wildcards: "" if wildcards.read_type == "all" else wildcards.read_type
     wildcard_constraints:
-        read_type = "all|read1|read2"
+        read_type = "all"
     shell:
         """
         python {params.script_folder}/IdentityInsertMetrics_plot_subplot_noQscore_GlobalErrorRate_R1_R2.py -i {input.tsv} -o {output.plot} --y-margin 0.05 --max-reads-per-bin 5000000

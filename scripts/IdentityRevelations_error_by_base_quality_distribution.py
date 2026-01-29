@@ -167,6 +167,14 @@ def process_chromosome(args):
         #deletions counting deletion errors
         result[err_key]["error"]["del"] += deleted_bases_filtered
 
+        # Add insertions to BED
+        for start, end in ins_filtered:
+            result[err_key]["error"]["BED"].append((chrom_ref, start, end))
+    
+        # Add deletions to BED
+        for start, end, _ in del_filtered:
+            result[err_key]["error"]["BED"].append((chrom_ref, start, end))
+
     bam.close()
     print(f"[OK] {chrom}")
     return result
