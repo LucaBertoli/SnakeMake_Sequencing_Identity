@@ -27,3 +27,16 @@ count_seg_dup=$(cat ${file_1_errors} ${file_2_errors} ${file_3_errors} ${file_gt
 
 echo -e "total_errors\ttandem_repeats\thomopolymers\ttandem_repeats_and_homopolymers\tgclt25orgt65\tgclt30orgt55\tlow_map\tseg_dup"
 echo -e "$total_bp_errors\t$count_tandem_repeats\t$count_homopolymers\t$count_tandem_repeats_and_homopolymers\t$count_gclt25orgt65\t$count_gclt30orgt55\t$count_low_map\t$count_seg_dup"
+echo ""
+echo "Only reads with 1 error"
+total_bp_errors=$(cat ${file_1_errors} | awk -F'\t' 'BEGIN{SUM=0}{ SUM+=$3-$2 }END{print SUM}')
+count_tandem_repeats=$(cat ${file_1_errors} | bedtools intersect -a - -b "$tandem_repeats" | awk -F'\t' 'BEGIN{SUM=0}{ SUM+=$3-$2 }END{print SUM}')
+count_homopolymers=$(cat ${file_1_errors} | bedtools intersect -a - -b "$homopolymers" | awk -F'\t' 'BEGIN{SUM=0}{ SUM+=$3-$2 }END{print SUM}')
+count_tandem_repeats_and_homopolymers=$(cat ${file_1_errors} | bedtools intersect -a - -b "$tandem_repeats_and_homopolymers" | awk -F'\t' 'BEGIN{SUM=0}{ SUM+=$3-$2 }END{print SUM}')
+count_gclt25orgt65=$(cat "${file_1_errors}" | bedtools intersect -a - -b "$gclt25orgt65" | awk -F'\t' 'BEGIN{SUM=0}{ SUM+=$3-$2 }END{print SUM}')
+count_gclt30orgt55=$(cat "${file_1_errors}" | bedtools intersect -a - -b "$gclt30orgt55" | awk -F'\t' 'BEGIN{SUM=0}{ SUM+=$3-$2 }END{print SUM}')
+count_low_map=$(cat "${file_1_errors}" | bedtools intersect -a - -b "$low_map" | awk -F'\t' 'BEGIN{SUM=0}{ SUM+=$3-$2 }END{print SUM}')
+count_seg_dup=$(cat ${file_1_errors} | bedtools intersect -a - -b "$seg_dup" | awk -F'\t' 'BEGIN{SUM=0}{ SUM+=$3-$2 }END{print SUM}')
+
+echo -e "total_errors\ttandem_repeats\thomopolymers\ttandem_repeats_and_homopolymers\tgclt25orgt65\tgclt30orgt55\tlow_map\tseg_dup"
+echo -e "$total_bp_errors\t$count_tandem_repeats\t$count_homopolymers\t$count_tandem_repeats_and_homopolymers\t$count_gclt25orgt65\t$count_gclt30orgt55\t$count_low_map\t$count_seg_dup"

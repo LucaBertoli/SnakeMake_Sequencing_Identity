@@ -13,6 +13,7 @@ rule all:
 		expand("{output_name}/{output_name}_HCR.bam_mean_quality_LogOfMeans.tsv.gz", output_name=OUTPUT_NAME),
 		expand("{output_name}/IDENTITY_{output_name}_full_{read_type}.tsv.gz", output_name=OUTPUT_NAME, read_type=READS),
 		expand("{output_name}/IDENTITY_{output_name}_full_{read_type}.tsv.gz.stats", output_name=OUTPUT_NAME, read_type=READS),
+		expand("{output_name}/IDENTITY_{output_name}_full_{read_type}.tsv.gz.error.stats", output_name=OUTPUT_NAME, read_type=READS),
 		expand("{output_name}/{output_name}_{read_type}_phred_hist_subplot.png", output_name=OUTPUT_NAME, read_type=READS),
 		expand("{output_name}/{output_name}_{read_type}_phred_hist.csv", output_name=OUTPUT_NAME, read_type=READS),
 		expand("{output_name}/{output_name}.all.types.pileup.gz", output_name=OUTPUT_NAME),
@@ -31,6 +32,7 @@ rule all:
 		expand("{output_name}/{output_name}_HCR_reads_30_up_LogOfMeans.bam", output_name=OUTPUT_NAME),
 		expand("{output_name}/IDENTITY_{output_name}_reads_30_up_LogOfMeans_{read_type}.tsv.gz", output_name=OUTPUT_NAME, read_type=READS),
 		expand("{output_name}/IDENTITY_{output_name}_reads_30_up_LogOfMeans_{read_type}.tsv.gz.stats", output_name=OUTPUT_NAME, read_type=READS),
+		expand("{output_name}/IDENTITY_{output_name}_reads_30_up_LogOfMeans_{read_type}.tsv.gz.error.stats", output_name=OUTPUT_NAME, read_type=READS),
 		expand("{output_name}/{output_name}_HCR_reads_30_up_LogOfMeans.bam_mean_quality_LogOfMeans.tsv.gz", output_name=OUTPUT_NAME),
 		expand("{output_name}/{output_name}_{read_type}_reads_30_up_LogOfMeans_phred_hist_subplot.png", output_name=OUTPUT_NAME, read_type=READS),
 		expand("{output_name}/{output_name}_{read_type}_reads_30_up_LogOfMeans_phred_hist.csv", output_name=OUTPUT_NAME, read_type=READS),
@@ -38,6 +40,7 @@ rule all:
 		expand("{output_name}/{output_name}_reads_30_up_LogOfMeans.all.types.pileup.target.bed", output_name=OUTPUT_NAME),
 		expand("{output_name}/IDENTITY_{output_name}_reads_30_up_LogOfMeans_full_all.identity.all.types.pileup.report", output_name=OUTPUT_NAME),
 		expand("{output_name}/IDENTITY_{output_name}_reads_30_up_LogOfMeans_error_quality_distribution.tsv.gz", output_name=OUTPUT_NAME, read_type=READS)
+		expand("{output_name}/IDENTITY_{output_name}_reads_30_up_LogOfMeans_read_quality_distribution/read_quality_dist_TOTAL.tsv.gz", output_name=OUTPUT_NAME)
 
 ######## ANALYSIS ON ALL READS ########
 #intersection of raw bam against GIAB high confidence regions with samtools
@@ -48,6 +51,8 @@ include: config["rules_folder"] + "scatter_bam.smk",
 include: config["rules_folder"] + "identity_calculation.smk",
 #statistics on identity calculation results with IdentityRevelations_stats.py
 include: config["rules_folder"] + "identity_stats.smk",
+#counting error types on all reads
+include: config["rules_folder"] + "count_errors_by_types.smk",
 #plotting of identity results with Identity_plot.py
 include: config["rules_folder"] + "identity_plot.smk",
 #identity calculation with samtools mpileup using identity_calculation_all_types.sh
@@ -68,6 +73,8 @@ include: config["rules_folder"] + "filter_bam.smk",
 include: config["rules_folder"] + "identity_calculation_reads_qual_30.smk",
 #statistics on identity calculation results on Q30+ reads with IdentityRevelations_stats.py
 include: config["rules_folder"] + "identity_stats_reads_qual_30.smk",
+#counting error types on Q30+ reads
+include: config["rules_folder"] + "count_errors_by_types_qual_30.smk",
 #compute average quality of Q30+ reads in the bam file using Scatter_BAM_LogOfMeans.py
 include: config["rules_folder"] + "scatter_bam_reads_qual_30.smk",
 #plotting of identity results on Q30+ reads with Identity_plot.py
@@ -76,3 +83,5 @@ include: config["rules_folder"] + "identity_plot_reads_qual_30.smk",
 include: config["rules_folder"] + "identity_all_types_reads_qual_30.smk",
 #compute quality distribution of the errors in Q30 reads using IdentityRevelations_error_by_base_quality_distribution.py
 include: config["rules_folder"] + "identity_error_by_base_quality_distribution_qual_Q30.smk",
+#compute quality distribution of the bases in Q30 reads using IdentityRevelations_read_by_base_quality_distribution.py
+include: config["rules_folder"] + "identity_read_by_base_quality_distribution_qual_Q30.smk",
