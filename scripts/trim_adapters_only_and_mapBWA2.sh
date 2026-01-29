@@ -5,7 +5,8 @@ R2=$2;
 thread=$3;
 
 fastp="/home/tools/fastp/fastp";
-FASTA="/home/db/hg38_bwa2/hg38_chr1-22-XYM/Homo_sapiens_assembly38_noalt.fasta";
+# FASTA="/home/db/hg38_bwa2/hg38_chr1-22-XYM/Homo_sapiens_assembly38_noalt.fasta";
+FASTA="/home/db/hg38_bwa2/hg38_noalt_nodecoy/GCA_000001405.15_GRCh38_no_alt_analysis_set.fasta"; # per test rianalisi
 
 echo "Start trimming at $(date)"; 
 
