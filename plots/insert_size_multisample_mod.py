@@ -10,12 +10,11 @@ import sys
 
 ## MODIFICARE ls SEGUENTe LISTa IN BASE AL NUMERO DI FILE IN INPUT, UTILIZZARE COLORI DI MATPLOTLIB
 colori_matplotlib = [
-    "r", 
-    "b",
-    "g",
-    "cyan"
+    "#E69F00", 
+    "#009E73",
+    "#004488",
+    "#CC79A7"
 ]
-
 ###### Open tsv files
 ##DA MODIFICARE PER IMPOSTARE LA DIMENSIONE DELLA FIGURA
 fig, ax1 = plt.subplots(figsize=(8, 4))
@@ -94,13 +93,13 @@ for i in range(1, len(sys.argv)):
     line_labels = []
 
     ##DA COMMENTARE O MODIFICARE PER IMPOSTARE IL NOME DELLE CONDIZIONI PLOTTATE, USARE COLORI DELLA LEGGENDA IMPOSTATA IN PRECEDENZA 
-    line_legends.append(Patch(color='r'))
+    line_legends.append(Patch(color='#004488'))
     line_labels.append("Illumina NovaSeq X")
-    line_legends.append(Patch(color='b'))
+    line_legends.append(Patch(color='#E69F00'))
     line_labels.append("Element AVITI")
-    line_legends.append(Patch(color='g'))
+    line_legends.append(Patch(color='#009E73'))
     line_labels.append("GeneMind SurfSeq 5000")
-    line_legends.append(Patch(color='cyan'))
+    line_legends.append(Patch(color='#CC79A7'))
     line_labels.append("MGI T1")
 
 
@@ -139,7 +138,7 @@ for i in range(1, len(sys.argv)):
     ax1.ticklabel_format(style='plain')
 
     ##DA MODIFICARE PER IMPOSTARE IL TITOLO DEL GRAFICO
-    ax1.set_title('Insert Size Histogram')
+    # ax1.set_title('Insert Size Histogram')
 
     plt.legend(line_legends, line_labels, loc='upper right', bbox_to_anchor=(1, 1), fontsize='small', prop={'size': 10})
 
