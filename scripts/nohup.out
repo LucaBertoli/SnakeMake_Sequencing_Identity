@@ -1,2 +1,317 @@
 ✅ Plot salvato in: plot_example.png
 ✅ Plot salvato in: plot_example_R1_R2.png
+
+====================================================================================================
+SEQUENCING PLATFORM COMPARISON - QUALITY DISTRIBUTION ANALYSIS
+====================================================================================================
+
+Output prefix: IdentityRevelations_read_by_base_quality_distribution_plot_TOTAL_result
+Parallel threads: 4
+
+Platforms:
+  1. Element AVITI             → ../Element_WGS/RUN_4/SnakeMake_Sequencing_Identity_HCR_common_GATK/NA12878_KAPA/IDENTITY_NA12878_KAPA_reads_30_up_LogOfMeans_read_quality_distribution/read_quality_dist_TOTAL.tsv.gz
+  2. GeneMind SURFSeq          → ../GeneMind_WGS/V2/SnakeMake_Sequencing_Identity_HCR_common_GATK/NA12878_KAPA/IDENTITY_NA12878_KAPA_reads_30_up_LogOfMeans_read_quality_distribution/read_quality_dist_TOTAL.tsv.gz
+  3. Illumina NovaSeq X        → ../ILLUMINA_NovaSeqX_WGS/NA12878_KAPA/SnakeMake_Sequencing_Identity_HCR_common_GATK/NA12878_KAPA/IDENTITY_NA12878_KAPA_reads_30_up_LogOfMeans_read_quality_distribution/read_quality_dist_TOTAL.tsv.gz
+  4. MGI T1+                   → ../MGI/T1/SnakeMake_Sequencing_Identity_HCR_common_GATK/NA12878_KAPA/IDENTITY_NA12878_KAPA_reads_30_up_LogOfMeans_read_quality_distribution/read_quality_dist_TOTAL.tsv.gz
+
+Processing 4 platforms in parallel (4 threads)...
+
+[Element AVITI] Reading ../Element_WGS/RUN_4/SnakeMake_Sequencing_Identity_HCR_common_GATK/NA12878_KAPA/IDENTITY_NA12878_KAPA_reads_30_up_LogOfMeans_read_quality_distribution/read_quality_dist_TOTAL.tsv.gz...
+[GeneMind SURFSeq] Reading ../GeneMind_WGS/V2/SnakeMake_Sequencing_Identity_HCR_common_GATK/NA12878_KAPA/IDENTITY_NA12878_KAPA_reads_30_up_LogOfMeans_read_quality_distribution/read_quality_dist_TOTAL.tsv.gz...
+[Illumina NovaSeq X] Reading ../ILLUMINA_NovaSeqX_WGS/NA12878_KAPA/SnakeMake_Sequencing_Identity_HCR_common_GATK/NA12878_KAPA/IDENTITY_NA12878_KAPA_reads_30_up_LogOfMeans_read_quality_distribution/read_quality_dist_TOTAL.tsv.gz...
+[MGI T1+] Reading ../MGI/T1/SnakeMake_Sequencing_Identity_HCR_common_GATK/NA12878_KAPA/IDENTITY_NA12878_KAPA_reads_30_up_LogOfMeans_read_quality_distribution/read_quality_dist_TOTAL.tsv.gz...
+
+====================================================================================================
+SEQUENCING PLATFORM COMPARISON - QUALITY DISTRIBUTION ANALYSIS
+====================================================================================================
+
+Output prefix: IdentityRevelations_read_by_base_quality_distribution_plot_TOTAL_result
+Parallel threads: 4
+
+Platforms:
+  1. Element AVITI             → ../Element_WGS/RUN_4/SnakeMake_Sequencing_Identity_HCR_common_GATK/NA12878_KAPA/IDENTITY_NA12878_KAPA_reads_30_up_LogOfMeans_read_quality_distribution/read_quality_dist_TOTAL.tsv.gz
+  2. GeneMind SURFSeq          → ../GeneMind_WGS/V2/SnakeMake_Sequencing_Identity_HCR_common_GATK/NA12878_KAPA/IDENTITY_NA12878_KAPA_reads_30_up_LogOfMeans_read_quality_distribution/read_quality_dist_TOTAL.tsv.gz
+  3. Illumina NovaSeq X        → ../ILLUMINA_NovaSeqX_WGS/NA12878_KAPA/SnakeMake_Sequencing_Identity_HCR_common_GATK/NA12878_KAPA/IDENTITY_NA12878_KAPA_reads_30_up_LogOfMeans_read_quality_distribution/read_quality_dist_TOTAL.tsv.gz
+  4. MGI T1+                   → ../MGI/T1/SnakeMake_Sequencing_Identity_HCR_common_GATK/NA12878_KAPA/IDENTITY_NA12878_KAPA_reads_30_up_LogOfMeans_read_quality_distribution/read_quality_dist_TOTAL.tsv.gz
+
+Processing 4 platforms in parallel (4 threads)...
+
+[Element AVITI] Reading ../Element_WGS/RUN_4/SnakeMake_Sequencing_Identity_HCR_common_GATK/NA12878_KAPA/IDENTITY_NA12878_KAPA_reads_30_up_LogOfMeans_read_quality_distribution/read_quality_dist_TOTAL.tsv.gz...
+[GeneMind SURFSeq] Reading ../GeneMind_WGS/V2/SnakeMake_Sequencing_Identity_HCR_common_GATK/NA12878_KAPA/IDENTITY_NA12878_KAPA_reads_30_up_LogOfMeans_read_quality_distribution/read_quality_dist_TOTAL.tsv.gz...
+[Illumina NovaSeq X] Reading ../ILLUMINA_NovaSeqX_WGS/NA12878_KAPA/SnakeMake_Sequencing_Identity_HCR_common_GATK/NA12878_KAPA/IDENTITY_NA12878_KAPA_reads_30_up_LogOfMeans_read_quality_distribution/read_quality_dist_TOTAL.tsv.gz...
+[MGI T1+] Reading ../MGI/T1/SnakeMake_Sequencing_Identity_HCR_common_GATK/NA12878_KAPA/IDENTITY_NA12878_KAPA_reads_30_up_LogOfMeans_read_quality_distribution/read_quality_dist_TOTAL.tsv.gz...
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+[Element AVITI] ✔ Finished: 462,205,050 rows total, 7,270,924 rows after filtering
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+[Illumina NovaSeq X] ✔ Finished: 546,793,819 rows total, 10,503,048 rows after filtering
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+[GeneMind SURFSeq] ✔ Finished: 577,289,424 rows total, 4,910,609 rows after filtering
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:72: DtypeWarning: Columns (1,3,4,5,6,7,8,9,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in load_tsv_chunked(tsv_path, chunksize=chunksize):
+[MGI T1+] ✔ Finished: 833,326,959 rows total, 16,199,198 rows after filtering
+
+✔ All files processed
+
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:184: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.boxplot(
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:211: UserWarning: FixedFormatter should only be used together with FixedLocator
+  ax.set_xticklabels(PLATFORMS, rotation=45, ha='right')
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:184: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.boxplot(
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:211: UserWarning: FixedFormatter should only be used together with FixedLocator
+  ax.set_xticklabels(PLATFORMS, rotation=45, ha='right')
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:184: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.boxplot(
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:211: UserWarning: FixedFormatter should only be used together with FixedLocator
+  ax.set_xticklabels(PLATFORMS, rotation=45, ha='right')
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:184: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.boxplot(
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:211: UserWarning: FixedFormatter should only be used together with FixedLocator
+  ax.set_xticklabels(PLATFORMS, rotation=45, ha='right')
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:184: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.boxplot(
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:211: UserWarning: FixedFormatter should only be used together with FixedLocator
+  ax.set_xticklabels(PLATFORMS, rotation=45, ha='right')
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:184: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.boxplot(
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:211: UserWarning: FixedFormatter should only be used together with FixedLocator
+  ax.set_xticklabels(PLATFORMS, rotation=45, ha='right')
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:184: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.boxplot(
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:211: UserWarning: FixedFormatter should only be used together with FixedLocator
+  ax.set_xticklabels(PLATFORMS, rotation=45, ha='right')
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:184: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.boxplot(
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:211: UserWarning: FixedFormatter should only be used together with FixedLocator
+  ax.set_xticklabels(PLATFORMS, rotation=45, ha='right')
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:184: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.boxplot(
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:211: UserWarning: FixedFormatter should only be used together with FixedLocator
+  ax.set_xticklabels(PLATFORMS, rotation=45, ha='right')
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:184: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.boxplot(
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:211: UserWarning: FixedFormatter should only be used together with FixedLocator
+  ax.set_xticklabels(PLATFORMS, rotation=45, ha='right')
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:184: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.boxplot(
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:211: UserWarning: FixedFormatter should only be used together with FixedLocator
+  ax.set_xticklabels(PLATFORMS, rotation=45, ha='right')
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:184: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.boxplot(
+/home/comparazione_kit/calcolo_identità_sequenze_Sequenziatori/scripts/IdentityRevelations_read_by_base_quality_distribution_plot_total.py:211: UserWarning: FixedFormatter should only be used together with FixedLocator
+  ax.set_xticklabels(PLATFORMS, rotation=45, ha='right')
+✔ Comparison plot saved: IdentityRevelations_read_by_base_quality_distribution_plot_TOTAL_result_platform_comparison.png
+✔ Comparison plot (PDF) saved: IdentityRevelations_read_by_base_quality_distribution_plot_TOTAL_result_platform_comparison.pdf
+
+====================================================================================================
+✔ Analysis complete!
+====================================================================================================
+
+✅ Plot salvato in: insert_size_stats_total_plot_example_R1_R2.png

@@ -26,7 +26,7 @@ from matplotlib.ticker import LogLocator, FuncFormatter
 
 # Platform names in order
 PLATFORMS = ["Element AVITI", "GeneMind SURFSeq", "Illumina NovaSeq X", "MGI T1+"]
-COLORS = ["#FF6B6B", "#4ECDC4", "#45B7D1", "#FFA07A"]
+COLORS = ["#FFE7B3", "#6BFFD6", "#55A9FF", "#F0E0F0"]
 
 
 def load_tsv_chunked(tsv_path, chunksize=500000):
@@ -138,7 +138,7 @@ def create_comparison_plots(all_data, output_prefix):
     
     error_order = ["1_error", "2_errors", "3_errors", "gt3_errors"]
     q_bins = ["q0_19", "q20_29", "q30plus"]
-    q_titles = ["Q0-19 (Low Quality)", "Q20-29 (Medium Quality)", "Q30+ (High Quality)"]
+    q_titles = ["Low Qscore (Q0-19)", "Medium Qscore (Q20-29)", "High Qscore (Q30+)"]
     
     # Set style
     sns.set_style("whitegrid")

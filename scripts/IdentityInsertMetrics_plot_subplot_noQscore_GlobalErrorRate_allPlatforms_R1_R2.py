@@ -23,7 +23,7 @@ import argparse
 # Lettura TSV e separazione R1 / R2
 # ============================================================
 
-def load_tsv(tsv_path, max_reads_per_bin=5_000_000):
+def load_tsv(tsv_path):
     bin_data = {
         "R1": {},
         "R2": {}
@@ -46,16 +46,15 @@ def load_tsv(tsv_path, max_reads_per_bin=5_000_000):
             if insert_bin not in bin_data[mode]:
                 bin_data[mode][insert_bin] = []
 
-            if len(bin_data[mode][insert_bin]) < max_reads_per_bin:
-                bases = int(row["aligned_read_length"])
-                errors = int(row["mismatch_filtered"]) + int(row["indel_filtered"])
+            bases = int(row["aligned_read_length"])
+            errors = int(row["mismatch_filtered"]) + int(row["indel_filtered"])
 
-                bin_data[mode][insert_bin].append({
-                    "insert_bin": insert_bin,
-                    "mean_qual_log": float(row["mean_qual_log"]),
-                    "errors": errors,
-                    "bases": bases
-                })
+            bin_data[mode][insert_bin].append({
+                "insert_bin": insert_bin,
+                "mean_qual_log": float(row["mean_qual_log"]),
+                "errors": errors,
+                "bases": bases
+            })
 
     def make_df(d):
         rows = [r for rows in d.values() for r in rows]
@@ -92,7 +91,7 @@ def compute_error_rate(df):
 
 def main(tsv_files, output_path, y_margin=0.05):
     labels = ["Element", "GeneMind", "Illumina", "MGI"]
-    colors = ["b", "g", "r", "c"]
+    colors = ["#E69F00", "#009E73", "#004488", "#CC79A7"]
 
     sns.set(style="whitegrid", font_scale=1.1)
     fig, axes = plt.subplots(2, 2, figsize=(13, 9), sharex=False)
