@@ -11,7 +11,7 @@ The present repository contains an automatic and reproducible snakemake-based wo
 - insert-size stratified sequencer-assigned Qscore and empirical alignment-based Qscore
 
 ## Key Concepts
-Using the pysam library, the workflow extracts mismatches from the MD tag and indels from the CIGAR string. To discriminate between true genetic variantion or alignment artifacts from sequencing errors, mismatch and indels corresponding to user-specified variants are not considered errors. Only primary-alignments are considered and reads with mapping quality less then 60 are excluded. A BED file is used as input to restrict the analysis on user-defined regions (e.g. GIAB High Confidence Regions). This is performed to mitigate the effect of misalignments on misassembled or complex regions.  
+Using the pysam library, the workflow extracts mismatches from the MD tag and indels from the CIGAR string. To discriminate between true genetic variantion or alignment artifacts from sequencing errors, mismatch and indels corresponding to user-specified variants are not considered errors. Only primary-alignments are considered and reads with mapping quality less than 60 are excluded. A BED file is used as input to restrict the analysis on user-defined regions (e.g. GIAB High Confidence Regions). This is performed to mitigate the effect of misalignments on misassembled or complex regions.  
 
 ## Repository content
 Main folders:
