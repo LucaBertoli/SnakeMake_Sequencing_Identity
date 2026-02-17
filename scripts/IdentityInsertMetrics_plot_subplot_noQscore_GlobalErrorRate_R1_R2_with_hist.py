@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-Crea un plot 2x2:
-- Riga 1: Read 1 (R1)
-- Riga 2: Read 2 (R2)
-- Colonna sinistra: qualità assegnata dal sequenziatore (mean_qual_log)
-- Colonna destra: error rate (mismatches + indels) + ISTOGRAMMA CONTEGGI
+Creates a  2x2 insert-size stratified plot:
+- Line 1: Read 1 (R1)
+- Line 2: Read 2 (R2)
+- Left Column: sequencer-assigned quality (mean_qual_log)
+- Right Column: error rate (mismatches + indels) + Count Histogram (background)
 """
 
 import gzip
